@@ -16,4 +16,24 @@ Some branches will have a beginning and an end state. These are marked with the 
 1. To use these exercise files, you must have the following installed:
 	- [list of requirements for course]
 2. Clone this repository into your local machine using the terminal (Mac), CMD (Windows), or a GUI tool like SourceTree.
-3. [Course-specific instructions]
+
+## Run and Edit
+
+### Intellij IDEA
+
+1. From IDEA Welcome screen, select **Open or Import**  
+2. Select the root directory of your newly cloned repository: **spring-spring-integration-28748253**
+3. Context-click on the file **dashboard/pom.xml**.
+4. Select **+ Add as Maven project**. Minimize the resulting Maven view pane if you wish.
+5. Again, context-click on the file **dashboard/pom.xml**
+6. Select **Maven > Generate Sources and Update Folders** ??
+7. Context-click **dashboard/src/main/java/com.kathyflint.lil.dashoard.DashboardApplication.java**
+8. Select **Run**
+9. Open in your browser
+
+COMMAND LINE INSTRUCTIONS
+
+a. Navigate to <repo>/dashboard  
+b. type `mvn clean package`  
+c.    
+    
