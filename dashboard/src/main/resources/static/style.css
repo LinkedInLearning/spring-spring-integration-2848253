@@ -1,0 +1,86 @@
+body {
+    font-family: "Lato", sans-serif;
+}
+.logo {
+    margin-right: 10%;
+    float: right;
+    width: 80px;
+}
+.h1 {
+    float: left;
+    color: #007089;
+    margin-left: 20%;
+    font-size: 120%;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.h2 {
+    float: left;
+    color: #8bca00;
+    margin-left: 20%;
+    font-size: 110%;
+    font-style: italic;
+}
+
+.header {
+    position: relative;
+    height: 90px;
+}
+
+.header div {
+    float: left;
+    width: 60%;
+}
+.grid_shell {
+    position: relative;
+    width: 50%;
+    left: 25%;
+    padding: 10px;
+}
+.grid_row {
+    width: 100%;
+    height: 200px;
+}
+
+.grid_background {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.grid_background img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: 400px;
+    opacity: 0.6;
+}
+
+.grid_container {
+    width: 45%;
+    height: 170px;
+    border: 1px dashed;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #eeeeee;
+}
+.col_1 {
+    float: left;
+}
+.col_2 {
+    float: right;
+}
+
+.grid_header {
+    color: #007089;
+    font-size: 90%;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.grid_body {
+    color: #222222;
+    font-size: 70%;
+}
