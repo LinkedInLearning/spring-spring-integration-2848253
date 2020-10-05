@@ -10,4 +10,6 @@
 
     <!-- Will fill this in in future lesson -->
 
+    <beans:bean id="testThatMessageFlowImportsWork" class="java.lang.Object"/>
+
 </beans:beans>
