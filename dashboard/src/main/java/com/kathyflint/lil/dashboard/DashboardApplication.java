@@ -29,6 +29,7 @@ public class DashboardApplication {
 		dashboardManager = new DashboardManager();
 		SpringApplication.run(DashboardApplication.class, args);
 		logger.info("Open this application in your browser at http://localhost:" + props.getRuntimeProperties().getProperty("server.port", "") + ". (Modify port number in src/main/resources/application.properties)");
+		context.close();
 	}
 
 	@GetMapping("/")
