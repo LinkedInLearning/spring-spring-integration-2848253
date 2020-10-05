@@ -25,7 +25,7 @@ The `main` branch holds the final state of the code when in the course.
 ### Intellij IDEA
 
 1. From IDEA Welcome screen, select **Open or Import**  
-2. Select the root directory of your newly cloned repository: **spring-spring-integration-28748253**
+2. Choose the root directory of your newly cloned repository: **spring-spring-integration-28748253**
 3. Context-click on the file **dashboard/pom.xml**.
 4. Select **+ Add as Maven project**. This will cause project dependencies to download from the internet. Minimize the resulting Maven view pane if you wish. 
 5. Context-click **dashboard/src/main/java/com.kathyflint.lil.dashoard.DashboardApplication.java**
@@ -35,8 +35,10 @@ The `main` branch holds the final state of the code when in the course.
 ### Visual Studio Code
 
 1. From VisualStudio Welcome screen, select **Open Folder**
-2. Select the root directory of your newly cloned repository: **spring-spring-integration-28748253**
-3. Context-click on the file **dashboard/pom.xml**.
+2. Choose the root directory of your newly cloned repository: **spring-spring-integration-28748253**
+3. Context-click **dashboard/src/main/java/com.kathyflint.lil.dashoard.DashboardApplication.java**
+4. Select **Run**
+5. Open the app in your browser at `http://localhost:9090`
 
 ### Run from Command Line
 
