@@ -8,6 +8,6 @@
 			   http://www.springframework.org/schema/integration
 			   https://www.springframework.org/schema/integration/spring-integration.xsd" >
 
-    <!-- Will fill this in in future lesson -->
+    <!-- Configure Spring Integration KinetECO News message flow here -->
 
 </beans:beans>
