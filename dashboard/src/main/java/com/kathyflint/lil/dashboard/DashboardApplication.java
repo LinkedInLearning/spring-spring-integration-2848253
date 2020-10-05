@@ -28,7 +28,9 @@ public class DashboardApplication {
 		AppProperties props = (AppProperties) context.getBean("appProperties");
 		dashboardManager = new DashboardManager();
 		SpringApplication.run(DashboardApplication.class, args);
+		logger.info("Imported message flows successful? " + "not yet!");
 		logger.info("Open this application in your browser at http://localhost:" + props.getRuntimeProperties().getProperty("server.port", "") + ". (Modify port number in src/main/resources/application.properties)");
+		context.close();
 	}
 
 	@GetMapping("/")
