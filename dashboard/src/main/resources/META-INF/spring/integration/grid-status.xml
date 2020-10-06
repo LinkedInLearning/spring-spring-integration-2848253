@@ -10,6 +10,6 @@
 
     <!-- Configure Spring Integration Grid Status message flow here -->
 
-    <beans:bean id="testThatMessageFlowImportsWork" class="java.lang.Object"/>
+    <beans:bean id="testMessageFlowImports" class="java.lang.Object"/>
 
 </beans:beans>
