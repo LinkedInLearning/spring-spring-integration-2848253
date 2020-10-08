@@ -1,11 +1,13 @@
 package com.lil.springintegration.manage;
 
 import com.lil.springintegration.util.AppProperties;
+import com.lil.springintegration.util.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.Date;
 import java.util.Properties;
 
 public class DashboardManager {
@@ -37,6 +39,7 @@ public class DashboardManager {
         AppProperties props = (AppProperties) DashboardManager.context.getBean("appProperties");
         DashboardManager.dashboardStatusDao.setProperty("softwareBuild", props.getRuntimeProperties().getProperty("software.build", "unknown"));
         // Make an AppSupportStatus payload
+        // AppSupportStatus status =
         // AppSupportStatus status =
         // Build a Message
 
