@@ -13,11 +13,14 @@ class DashboardApplicationTests {
 	void contextLoads() {
 		//AbstractApplicationContext context = new ClassPathXmlApplicationContext("", DashboardApplicationTests.class);
 		try {
-			//
+			// look for imported bean
+			System.out.println("Message flows imported.");
 			assert(true);
 		} catch(NoSuchBeanDefinitionException e) {
-			System.out.println(e);
+			System.out.println(e.toString());
 			assert(false);
+		} finally {
+			// close resource
 		}
 	}
 
