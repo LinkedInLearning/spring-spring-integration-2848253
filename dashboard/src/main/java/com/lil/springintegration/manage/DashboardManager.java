@@ -1,22 +1,12 @@
-package com.kathyflint.lil.dashboard.manage;
+package com.lil.springintegration.manage;
 
-import com.kathyflint.lil.dashboard.util.AppProperties;
-import com.kathyflint.lil.dashboard.util.AppSupportStatus;
+import com.lil.springintegration.util.AppProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.channel.DirectChannel;
-import org.springframework.messaging.*;
-import org.springframework.messaging.support.ErrorMessage;
-import org.springframework.messaging.support.GenericMessage;
-import org.springframework.messaging.support.MessageBuilder;
 
-import java.util.Date;
 import java.util.Properties;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class DashboardManager {
 

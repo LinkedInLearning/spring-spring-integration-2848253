@@ -1,7 +1,7 @@
-package com.kathyflint.lil.dashboard;
+package com.lil.springintegration;
 
-import com.kathyflint.lil.dashboard.manage.DashboardManager;
-import com.kathyflint.lil.dashboard.util.AppProperties;
+import com.lil.springintegration.manage.DashboardManager;
+import com.lil.springintegration.util.AppProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
