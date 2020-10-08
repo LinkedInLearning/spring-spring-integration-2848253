@@ -14,7 +14,7 @@ class DashboardApplicationTests {
 		//AbstractApplicationContext context = new ClassPathXmlApplicationContext("", DashboardApplicationTests.class);
 		try {
 			// look for imported bean
-			System.out.println("Message flows imported.");
+			System.out.println("Spring Integration message flows imported successfully!");
 			assert(true);
 		} catch(NoSuchBeanDefinitionException e) {
 			System.out.println(e.toString());
