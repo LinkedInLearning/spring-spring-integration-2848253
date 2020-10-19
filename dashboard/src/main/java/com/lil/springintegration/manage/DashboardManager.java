@@ -41,12 +41,12 @@ public class DashboardManager {
         AppProperties props = (AppProperties) DashboardManager.context.getBean("appProperties");
         DashboardManager.dashboardStatusDao.setProperty("softwareBuild", props.getRuntimeProperties().getProperty("software.build", "unknown"));
 
-        // Make an AppSupportStatus payload
+        // Make an domain-specific payload object
         // AppSupportStatus status =
 
-        // Build a Message
+        // Use MessageBuilder utility class to construct a Message with our domain object as payload
 
-        // To send our message, we need a channel!
+        // Now, to send our message, we need a channel!
 
     }
 
