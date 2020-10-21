@@ -25,7 +25,7 @@ public class TechSupportService {
     private void start() {
         // Represents long-running process thread
 
-        // Subscribe to our message flow tech support channel
+        // Subscribe to our tech support channel
         //techSupportChannel.subscribe(new ServiceMessageHandler());
 
     }

@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
 
@@ -25,8 +24,8 @@ public class DashboardManager {
 
     public DashboardManager() {
         DashboardManager.context = new ClassPathXmlApplicationContext("/META-INF/spring/application.xml", DashboardManager.class);
-        initializeTechSupport();
         initializeView();
+        initializeTechSupport();
         initializeGridStatus();
         initializeKinetecoNews();
         initializePowerUsage();
@@ -63,6 +62,7 @@ public class DashboardManager {
 
     private void initializeView() {
         DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
+        // Subscribe to our tech support channel
     }
 
     private void initializeGridStatus() {
