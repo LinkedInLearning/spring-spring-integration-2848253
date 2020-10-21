@@ -20,4 +20,7 @@ public class AppSupportStatus {
     public Date getTime() {
         return snapTime;
     }
+
+    public String toString() { return snapVersion + "@" + snapTime.toString(); }
+
 }
