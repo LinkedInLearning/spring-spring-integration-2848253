@@ -19,13 +19,14 @@ public class TechSupportService {
 
     public TechSupportService() {
         techSupportChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
-        // techSupportChannel =
         this.start();
     }
 
     private void start() {
-        // subscribe to our message flow tech support channel
-        // Spawn long-running process thread
+        // Represents long-running process thread
+
+        // Subscribe to our message flow tech support channel
+
     }
 
     private boolean isVersionCurrent() {
