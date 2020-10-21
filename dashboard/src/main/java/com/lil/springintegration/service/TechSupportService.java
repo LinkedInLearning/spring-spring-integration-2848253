@@ -5,14 +5,18 @@ import com.lil.springintegration.manage.DashboardManager;
 import com.lil.springintegration.util.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.integration.channel.DirectChannel;
 
 
 public class TechSupportService {
 
     static Logger logger = LoggerFactory.getLogger(DashboardManager.class);
 
+    private DirectChannel techSupportChannel;
+
     public TechSupportService() {
         // initialize our tech support message flow channel
+        //techSupportChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
         this.start();
     }
 
