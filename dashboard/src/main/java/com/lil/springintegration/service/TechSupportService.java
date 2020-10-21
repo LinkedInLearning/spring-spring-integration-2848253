@@ -18,7 +18,7 @@ public class TechSupportService {
     private AbstractSubscribableChannel techSupportChannel;
 
     public TechSupportService() {
-        techSupportChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
+        //techSupportChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
         this.start();
     }
 
@@ -26,6 +26,7 @@ public class TechSupportService {
         // Represents long-running process thread
 
         // Subscribe to our message flow tech support channel
+        //techSupportChannel.subscribe(new ServiceMessageHandler());
 
     }
 
