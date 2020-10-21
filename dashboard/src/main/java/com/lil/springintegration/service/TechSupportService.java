@@ -6,17 +6,20 @@ import com.lil.springintegration.util.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.channel.PublishSubscribeChannel;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.integration.channel.AbstractSubscribableChannel;
 
 
 public class TechSupportService {
 
     static Logger logger = LoggerFactory.getLogger(DashboardManager.class);
 
-    private DirectChannel techSupportChannel;
+    private AbstractSubscribableChannel techSupportChannel;
 
     public TechSupportService() {
         // initialize our tech support message flow channel
-        //techSupportChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
+        // techSupportChannel =
         this.start();
     }
 
