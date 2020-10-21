@@ -5,9 +5,7 @@ import com.lil.springintegration.manage.DashboardManager;
 import com.lil.springintegration.util.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.PublishSubscribeChannel;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.integration.channel.AbstractSubscribableChannel;
 
 
