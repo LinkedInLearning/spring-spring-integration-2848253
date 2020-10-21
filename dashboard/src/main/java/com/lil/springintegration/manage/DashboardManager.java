@@ -1,5 +1,7 @@
 package com.lil.springintegration.manage;
 
+import com.lil.springintegration.endpoint.TechSupportMessageHandler;
+import com.lil.springintegration.service.TechSupportService;
 import com.lil.springintegration.util.AppProperties;
 import com.lil.springintegration.util.AppSupportStatus;
 import org.slf4j.Logger;
@@ -30,6 +32,8 @@ public class DashboardManager {
         initializePowerUsage();
     }
 
+    public static ClassPathXmlApplicationContext getDashboardContext() { return (ClassPathXmlApplicationContext) DashboardManager.context; }
+
     public Properties getDashboardStatus() {
         return DashboardManager.dashboardStatusDao;
     }
@@ -42,6 +46,8 @@ public class DashboardManager {
     private void initializeTechSupport() {
         AppProperties props = (AppProperties) DashboardManager.context.getBean("appProperties");
         DashboardManager.dashboardStatusDao.setProperty("softwareBuild", props.getRuntimeProperties().getProperty("software.build", "unknown"));
+
+        TechSupportService service = new TechSupportService();
 
         // Make an domain-specific payload object
         AppSupportStatus status = new AppSupportStatus(props.getRuntimeProperties().getProperty("software.build", "unknown"), new Date());
@@ -68,7 +74,12 @@ public class DashboardManager {
     private void initializePowerUsage()  {
     }
 
+    private static class ViewMessageHandler extends TechSupportMessageHandler {
 
+        protected void receiveAndAcknowledge(AppSupportStatus status) {
+            DashboardManager.setDashboardStatus("softwareBuild", status.getVersion());
+        }
+    }
 
 }
 
