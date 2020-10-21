@@ -18,7 +18,7 @@ public class TechSupportService {
     private AbstractSubscribableChannel techSupportChannel;
 
     public TechSupportService() {
-        // initialize our tech support message flow channel
+        techSupportChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
         // techSupportChannel =
         this.start();
     }
@@ -35,7 +35,7 @@ public class TechSupportService {
     private static class ServiceMessageHandler extends TechSupportMessageHandler {
 
         protected void receiveAndAcknowledge(AppSupportStatus status) {
-            TechSupportService.logger.info("Tech support service received message: " + status.toString());
+            TechSupportService.logger.info("Tech support service received new build notification: " + status.toString());
         }
     }
 }
