@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.channel.DirectChannel;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
 
@@ -23,6 +24,7 @@ public class DashboardManager {
     public DashboardManager() {
         DashboardManager.context = new ClassPathXmlApplicationContext("/META-INF/spring/application.xml", DashboardManager.class);
         initializeTechSupport();
+        initializeView();
         initializeGridStatus();
         initializeKinetecoNews();
         initializePowerUsage();
@@ -45,12 +47,16 @@ public class DashboardManager {
         AppSupportStatus status = new AppSupportStatus(props.getRuntimeProperties().getProperty("software.build", "unknown"), new Date());
 
         // Use MessageBuilder utility class to construct a Message with our domain object as payload
-        GenericMessage message = (GenericMessage) MessageBuilder
+        GenericMessage<?> message = (GenericMessage<?>) MessageBuilder
                 .withPayload(status)
                 .build();
 
         // Now, to send our message, we need a channel!
 
+    }
+
+    private void initializeView() {
+        DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
     }
 
     private void initializeGridStatus() {
