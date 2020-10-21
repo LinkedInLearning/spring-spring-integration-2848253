@@ -1,5 +1,6 @@
 package com.lil.springintegration.manage;
 
+import com.lil.springintegration.endpoint.TechSupportMessageHandler;
 import com.lil.springintegration.service.TechSupportService;
 import com.lil.springintegration.util.AppProperties;
 import com.lil.springintegration.util.AppSupportStatus;
@@ -7,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
@@ -46,7 +46,7 @@ public class DashboardManager {
     private void initializeView() {
         DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
         PublishSubscribeChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupport");
-        techSupportChannel.subscribe(new ViewMessageHandler());
+        techSupportChannel.subscribe(new ViewMessageHandler2());
     }
 
     private void initializeTechSupport() {
@@ -64,7 +64,7 @@ public class DashboardManager {
                 .build();
 
         // Now, to send our message, we need a channel!
-        PublishSubscribeChannel techSupportChannel =(PublishSubscribeChannel) DashboardManager.context.getBean("techSupport");
+        PublishSubscribeChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupport");
         techSupportChannel.send(message);
     }
 
@@ -75,6 +75,13 @@ public class DashboardManager {
     }
 
     private void initializePowerUsage()  {
+    }
+
+    private static class ViewMessageHandler2 extends TechSupportMessageHandler {
+
+        protected void receiveAndAcknowledge(AppSupportStatus status) {
+            DashboardManager.setDashboardStatus("softwareBuild", status.getVersion());
+        }
     }
 
 }
