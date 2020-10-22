@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.channel.AbstractSubscribableChannel;
 import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
@@ -45,8 +46,7 @@ public class DashboardManager {
 
     private void initializeView() {
         DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
-        PublishSubscribeChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupport");
-        techSupportChannel.subscribe(new ViewMessageHandler2());
+        // Subscribe to our tech support channel
     }
 
     private void initializeTechSupport() {
@@ -54,8 +54,6 @@ public class DashboardManager {
         TechSupportService support = new TechSupportService();
 
         AppProperties props = (AppProperties) DashboardManager.context.getBean("appProperties");
-
-        TechSupportService service = new TechSupportService();
 
         // Make an domain-specific payload object
         AppSupportStatus status = new AppSupportStatus(props.getRuntimeProperties().getProperty("software.build", "unknown"), new Date());
@@ -66,13 +64,7 @@ public class DashboardManager {
                 .build();
 
         // Now, to send our message, we need a channel!
-        PublishSubscribeChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupport");
-        techSupportChannel.send(message);
-    }
-
-    private void initializeView() {
-        DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
-        // Subscribe to our tech support channel
+        //AbstractSubscribableChannel techSupportChannel =
     }
 
     private void initializeGridStatus() {
