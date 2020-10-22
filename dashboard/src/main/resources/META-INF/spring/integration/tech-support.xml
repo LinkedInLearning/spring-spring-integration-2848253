@@ -10,5 +10,7 @@
 
     <!-- Configure Spring Integration Tech Support message flow here -->
 
+    <int:publish-subscribe-channel id="techSupport" />
+
 </beans:beans>
 

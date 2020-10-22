@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.channel.AbstractSubscribableChannel;
 
-
 public class TechSupportService {
 
     static Logger logger = LoggerFactory.getLogger(DashboardManager.class);
@@ -25,7 +24,6 @@ public class TechSupportService {
 
         // Subscribe to our tech support channel
         //techSupportChannel.subscribe(new ServiceMessageHandler());
-
     }
 
     private boolean isVersionCurrent() {

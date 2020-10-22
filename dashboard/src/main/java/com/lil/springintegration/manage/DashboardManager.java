@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
 
@@ -16,7 +17,7 @@ import java.util.Properties;
 
 public class DashboardManager {
 
-    private static Properties dashboardStatusDao = new Properties();
+    static Properties dashboardStatusDao = new Properties();
 
     static Logger logger = LoggerFactory.getLogger(DashboardManager.class);
 
@@ -33,18 +34,26 @@ public class DashboardManager {
 
     public static ClassPathXmlApplicationContext getDashboardContext() { return (ClassPathXmlApplicationContext) DashboardManager.context; }
 
-    public Properties getDashboardStatus() {
-        return DashboardManager.dashboardStatusDao;
-    }
-
     static void setDashboardStatus(String key, String value) {
         String v = (value != null ? value : "");
         DashboardManager.dashboardStatusDao.setProperty(key, v);
     }
 
+    public static Properties getDashboardStatus() {
+        return DashboardManager.dashboardStatusDao;
+    }
+
+    private void initializeView() {
+        DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
+        PublishSubscribeChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupport");
+        techSupportChannel.subscribe(new ViewMessageHandler2());
+    }
+
     private void initializeTechSupport() {
+
+        TechSupportService support = new TechSupportService();
+
         AppProperties props = (AppProperties) DashboardManager.context.getBean("appProperties");
-        DashboardManager.dashboardStatusDao.setProperty("softwareBuild", props.getRuntimeProperties().getProperty("software.build", "unknown"));
 
         TechSupportService service = new TechSupportService();
 
@@ -57,7 +66,8 @@ public class DashboardManager {
                 .build();
 
         // Now, to send our message, we need a channel!
-
+        PublishSubscribeChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupport");
+        techSupportChannel.send(message);
     }
 
     private void initializeView() {
