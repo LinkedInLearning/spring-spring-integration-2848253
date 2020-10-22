@@ -55,6 +55,8 @@ public class DashboardManager {
 
         AppProperties props = (AppProperties) DashboardManager.context.getBean("appProperties");
 
+        TechSupportService service = new TechSupportService();
+
         // Make an domain-specific payload object
         AppSupportStatus status = new AppSupportStatus(props.getRuntimeProperties().getProperty("software.build", "unknown"), new Date());
 
@@ -68,6 +70,11 @@ public class DashboardManager {
         techSupportChannel.send(message);
     }
 
+    private void initializeView() {
+        DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
+        // Subscribe to our tech support channel
+    }
+
     private void initializeGridStatus() {
     }
 
@@ -77,7 +84,7 @@ public class DashboardManager {
     private void initializePowerUsage()  {
     }
 
-    private static class ViewMessageHandler2 extends TechSupportMessageHandler {
+    private static class ViewMessageHandler extends TechSupportMessageHandler {
 
         protected void receiveAndAcknowledge(AppSupportStatus status) {
             DashboardManager.setDashboardStatus("softwareBuild", status.getVersion());

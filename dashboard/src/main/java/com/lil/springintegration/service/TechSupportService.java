@@ -6,23 +6,24 @@ import com.lil.springintegration.util.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.integration.channel.PublishSubscribeChannel;
-import org.springframework.messaging.MessageChannel;
-
+import org.springframework.integration.channel.AbstractSubscribableChannel;
 
 public class TechSupportService {
 
     static Logger logger = LoggerFactory.getLogger(DashboardManager.class);
 
-    static PublishSubscribeChannel techSupportChannel;
+    private AbstractSubscribableChannel techSupportChannel;
 
     public TechSupportService() {
-        techSupportChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("techSupport");
+        //techSupportChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
         this.start();
     }
 
     private void start() {
-        // Spawn long-running process thread
-        techSupportChannel.subscribe(new ServiceMessageHandler());
+        // Represents long-running process thread
+
+        // Subscribe to our tech support channel
+        //techSupportChannel.subscribe(new ServiceMessageHandler());
     }
 
     private boolean isVersionCurrent() {
@@ -32,7 +33,7 @@ public class TechSupportService {
     private static class ServiceMessageHandler extends TechSupportMessageHandler {
 
         protected void receiveAndAcknowledge(AppSupportStatus status) {
-            TechSupportService.logger.info("Tech support service received message: " + status.toString());
+            TechSupportService.logger.info("Tech support service received new build notification: " + status.toString());
         }
     }
 }
