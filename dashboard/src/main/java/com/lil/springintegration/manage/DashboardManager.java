@@ -10,11 +10,15 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.channel.AbstractSubscribableChannel;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.channel.QueueChannel;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
 
 import java.util.Date;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DashboardManager {
 
@@ -23,6 +27,8 @@ public class DashboardManager {
     static Logger logger = LoggerFactory.getLogger(DashboardManager.class);
 
     private static AbstractApplicationContext context;
+
+    private Timer timer = new Timer();
 
     public DashboardManager() {
         DashboardManager.context = new ClassPathXmlApplicationContext("/META-INF/spring/application.xml", DashboardManager.class);
@@ -48,9 +54,20 @@ public class DashboardManager {
         DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
         AbstractSubscribableChannel techSupportChannel = (DirectChannel) DashboardManager.context.getBean("techSupportChannel");
         techSupportChannel.subscribe(new ViewMessageHandler());
+
+        // Every n seconds, poll for update required so we can notify the end user
+        timer.schedule(new TimerTask() {
+            public void run() {
+                //QueueChannel updateNotification = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
+                //System.out.println("Pending notifications: " + updateNotification.getQueueSize());
+            }
+        }, 0, 5000);
+
     }
 
     private void initializeTechSupport() {
+
+        TechSupportService techSupportService = new TechSupportService();
 
         AppProperties props = (AppProperties) DashboardManager.context.getBean("appProperties");
 

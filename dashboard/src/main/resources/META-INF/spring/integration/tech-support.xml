@@ -12,5 +12,9 @@
 
     <int:channel id="techSupportChannel" />
 
+    <int:channel id="updateNotificationQueueChannel">
+        <int:queue capacity="5" />
+    </int:channel>
+
 </beans:beans>
 
