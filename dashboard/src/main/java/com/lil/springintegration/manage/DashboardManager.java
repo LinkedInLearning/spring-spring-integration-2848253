@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.channel.AbstractSubscribableChannel;
-import org.springframework.integration.channel.PublishSubscribeChannel;
+import org.springframework.integration.channel.DirectChannel;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
 
@@ -46,13 +46,11 @@ public class DashboardManager {
 
     private void initializeView() {
         DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
-        AbstractSubscribableChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupportChannel");
+        AbstractSubscribableChannel techSupportChannel = (DirectChannel) DashboardManager.context.getBean("techSupportChannel");
         techSupportChannel.subscribe(new ViewMessageHandler());
     }
 
     private void initializeTechSupport() {
-
-        TechSupportService support = new TechSupportService();
 
         AppProperties props = (AppProperties) DashboardManager.context.getBean("appProperties");
 
@@ -65,7 +63,7 @@ public class DashboardManager {
                 .build();
 
         // Now, to send our message, we need a channel!
-        AbstractSubscribableChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupportChannel");
+        AbstractSubscribableChannel techSupportChannel = (DirectChannel) DashboardManager.context.getBean("techSupportChannel");
         techSupportChannel.send(message);
     }
 
