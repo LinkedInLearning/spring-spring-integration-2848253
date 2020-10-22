@@ -33,11 +33,11 @@ public class TechSupportService {
             public void run() {
                 // Check for more current software version
             }
-        }, 0, 3000);
+        }, 3000, 3000);
     }
 
     private void checkVersionCurrency() {
-        // Every five seconds, check api for currency a
+        // Every five seconds, check api for build currency
         // If necessary, push notice to queue
     }
 

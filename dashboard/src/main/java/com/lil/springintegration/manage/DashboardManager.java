@@ -61,7 +61,7 @@ public class DashboardManager {
                 //QueueChannel updateNotification = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
                 //System.out.println("Pending notifications: " + updateNotification.getQueueSize());
             }
-        }, 0, 5000);
+        }, 5000, 5000);
 
     }
 
