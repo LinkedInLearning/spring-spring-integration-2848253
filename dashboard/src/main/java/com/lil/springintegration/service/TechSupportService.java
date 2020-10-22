@@ -19,21 +19,15 @@ public class TechSupportService {
     private AbstractSubscribableChannel techSupportChannel;
 
     public TechSupportService() {
-        techSupportChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
-        QueueChannel blah = (QueueChannel) DashboardManager.getDashboardContext().getBean("queueChannel");
-        blah.receive();
-
+        // Initialize our class property techSupportChannel using application context
+        // techSupportChannel = (cast here) DashboardManager.getDashboardContext().getBean("techSupportChannel");
         this.start();
     }
 
     private void start() {
-        // Subscribe to our tech support channel
-        techSupportChannel.subscribe(new ServiceMessageHandler());
-
         // Represents long-running process thread
-        // Poll for changes to version
-        GenericMessage<?> message = (GenericMessage<?>) MessageBuilder.withPayload("true").build();
-        //orderConfirmationChannel.send(msg);
+
+        // Subscribe to the tech support channel
     }
 
     private boolean isVersionCurrent() {
