@@ -51,8 +51,6 @@ public class DashboardManager {
 
     private void initializeTechSupport() {
 
-        TechSupportService support = new TechSupportService();
-
         AppProperties props = (AppProperties) DashboardManager.context.getBean("appProperties");
 
         // Make an domain-specific payload object
