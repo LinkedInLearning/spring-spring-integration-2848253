@@ -58,8 +58,12 @@ public class DashboardManager {
         // Every n seconds, poll for update required so we can notify the end user
         timer.schedule(new TimerTask() {
             public void run() {
-                //QueueChannel updateNotification = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
-                //System.out.println("Pending notifications: " + updateNotification.getQueueSize());
+                QueueChannel updateNotification = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
+                Message<?> msg = updateNotification.receive(100);
+                if (msg != null) {
+                    DashboardManager.setDashboardStatus("softwareBuild", msg.getPayload().toString());
+                    System.out.println(msg.getPayload().toString());
+                }
             }
         }, 5000, 5000);
 

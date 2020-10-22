@@ -32,6 +32,7 @@ public class TechSupportService {
         timer.schedule(new TimerTask() {
             public void run() {
                 // Check for more current software version
+                checkVersionCurrency();
             }
         }, 3000, 3000);
     }
@@ -39,6 +40,8 @@ public class TechSupportService {
     private void checkVersionCurrency() {
         // Every five seconds, check api for build currency
         // If necessary, push notice to queue
+        QueueChannel updateQueue = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
+        updateQueue.send(MessageBuilder.withPayload("New software version available").build());
     }
 
     private static class ServiceMessageHandler extends TechSupportMessageHandler {
