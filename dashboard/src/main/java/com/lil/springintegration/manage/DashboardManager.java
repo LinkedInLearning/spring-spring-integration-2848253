@@ -46,7 +46,7 @@ public class DashboardManager {
 
     private void initializeView() {
         DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
-        PublishSubscribeChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupport");
+        AbstractSubscribableChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupportChannel");
         techSupportChannel.subscribe(new ViewMessageHandler());
     }
 
@@ -56,9 +56,7 @@ public class DashboardManager {
 
         AppProperties props = (AppProperties) DashboardManager.context.getBean("appProperties");
 
-        TechSupportService service = new TechSupportService();
-
-        // Make an domain-specific payload object
+        // Make a domain-specific payload object
         AppSupportStatus status = new AppSupportStatus(props.getRuntimeProperties().getProperty("software.build", "unknown"), new Date());
 
         // Use MessageBuilder utility class to construct a Message with our domain object as payload
@@ -67,7 +65,7 @@ public class DashboardManager {
                 .build();
 
         // Now, to send our message, we need a channel!
-        AbstractSubscribableChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupport");
+        AbstractSubscribableChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupportChannel");
         techSupportChannel.send(message);
     }
 
