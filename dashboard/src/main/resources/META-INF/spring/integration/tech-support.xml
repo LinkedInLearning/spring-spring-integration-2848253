@@ -12,5 +12,19 @@
 
     <int:publish-subscribe-channel id="techSupportChannel" />
 
+    <!-- https://www.waitingforcode.com/spring-integration/queue-channel/read -->
+
+    <int:channel id="queueChannel">
+        <int:queue capacity="5" />
+    </int:channel>
+
+
+    <!-- send-timeout parameter is mandatory here. Otherwise, service activator will block whole application when QueueChannel's queue
+          is full -->
+    <int:service-activator input-channel="techSupportChannel" ref="productActivator" requires-reply="true"
+                           output-channel="queueChannel" method="handleBookingProduct" send-timeout="1000" />
+
+
+
 </beans:beans>
 
