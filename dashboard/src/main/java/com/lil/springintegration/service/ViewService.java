@@ -19,6 +19,9 @@ public class ViewService {
     private AbstractSubscribableChannel techSupportChannel;
 
     public ViewService() {
+
+        // Initialize our updateNotificationChannel
+
         AbstractSubscribableChannel techSupportChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
         techSupportChannel.subscribe(new ViewMessageHandler());
         this.start();

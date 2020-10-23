@@ -5,13 +5,10 @@ import com.lil.springintegration.manage.DashboardManager;
 import com.lil.springintegration.util.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.integration.channel.DirectChannel;
-import org.springframework.integration.channel.PublishSubscribeChannel;
+import org.springframework.integration.channel.*;
 import org.springframework.integration.channel.AbstractSubscribableChannel;
-import org.springframework.integration.channel.QueueChannel;
-import org.springframework.integration.support.MessageBuilder;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.GenericMessage;
+
+
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,7 +36,9 @@ public class TechSupportService {
 
     private void checkVersionCurrency() {
         // Check REST api for more current software version
-        // If necessary, push notice to notification queue
+
+        // For now, following results in a fake notice to the queue every 10 seconds
+
     }
 
     private static class ServiceMessageHandler extends TechSupportMessageHandler {
