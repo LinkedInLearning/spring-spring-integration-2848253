@@ -20,6 +20,16 @@ public class TechSupportService {
     private QueueChannel updateNotificationChannel;
 
     public TechSupportService() {
+
+        /**
+         *  Challenge: Initialize private class property techSupportChannel (line 19) to the PublishSubscribeChannel
+         *  that you have configured in  tech-support.xml. Then subscribe to the channel.
+         *
+         *  Hint: To initialize, read from the Spring context, using line 34 as a pattern.
+         *  Hint: To subscribe, use ViewService.java:37 as an example. Let your handler be an instance of local inner class ServiceMessageHandler
+         */
+        // Challenge code here
+
         // Initialize our updateNotificationChannel
         updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
         this.start();
@@ -38,8 +48,9 @@ public class TechSupportService {
 
         // Check REST api for more current software version
 
-        // For now, following results in a fake notice to the queue every 10 seconds
-        updateNotificationChannel.send(MessageBuilder.withPayload("New software version available.").build(), 1000);
+        if (false) {
+            updateNotificationChannel.send(MessageBuilder.withPayload("New software version available.").build(), 1000);
+        }
     }
 
     private static class ServiceMessageHandler extends TechSupportMessageHandler {

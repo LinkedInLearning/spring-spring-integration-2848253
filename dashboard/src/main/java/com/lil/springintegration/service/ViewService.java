@@ -28,6 +28,11 @@ public class ViewService {
         // Initialize our updateNotificationChannel
         updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
 
+        /**
+         *  Challenge: Change this Subscribable DirectChannel to a PublishSubscribeChannel
+         *  Hint: Change the cast in line 36
+         */
+
         techSupportChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
         techSupportChannel.subscribe(new ViewMessageHandler());
         this.start();

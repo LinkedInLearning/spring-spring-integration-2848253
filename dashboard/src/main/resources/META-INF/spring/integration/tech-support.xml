@@ -10,7 +10,8 @@
 
     <!-- Configure Spring Integration Tech Support message flow here -->
 
-    <!-- DirectChannel example (Subscribable) -->
+    <!-- Challenge: Change this Subscribable DirectChannel to a PublishSubscribeChannel -->
+    <!-- Hint: element name is 'publish-subscribe-channel' -->
     <int:channel id="techSupportChannel" />
 
     <!-- QueueChannel example (Pollable) -->
