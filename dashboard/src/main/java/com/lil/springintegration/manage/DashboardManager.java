@@ -60,6 +60,11 @@ public class DashboardManager {
                 .withPayload(status)
                 .build();
 
+        /**
+         *  Challenge: Change this Subscribable DirectChannel to a PublishSubscribeChannel
+         *  Hint: Change the cast in line 69
+         */
+
         // Now, to send our message, we need a channel! (We also need subscribers before this send will be successful.)
         AbstractSubscribableChannel techSupportChannel = (DirectChannel) DashboardManager.context.getBean("techSupportChannel");
         techSupportChannel.send(message);
