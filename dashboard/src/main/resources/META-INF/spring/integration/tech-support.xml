@@ -10,11 +10,10 @@
 
     <!-- Configure Spring Integration Tech Support message flow here -->
 
+    <!-- DirectChannel example (Subscribable) -->
     <int:channel id="techSupportChannel" />
 
-    <int:channel id="updateNotificationQueueChannel" >
-        <int:queue capacity="5" />
-    </int:channel>
+    <!-- QueueChannel example (Pollable) -->
 
 </beans:beans>
 
