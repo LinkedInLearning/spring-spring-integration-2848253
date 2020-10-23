@@ -29,6 +29,8 @@ public class TechSupportService {
          *  Hint: To subscribe, use ViewService.java:37 as an example. Let your handler be an instance of local inner class ServiceMessageHandler
          */
         // Challenge code here
+        techSupportChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
+        techSupportChannel.subscribe(new ServiceMessageHandler());
 
         // Initialize our updateNotificationChannel
         updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");

@@ -5,10 +5,7 @@ import com.lil.springintegration.manage.DashboardManager;
 import com.lil.springintegration.util.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.integration.channel.AbstractPollableChannel;
-import org.springframework.integration.channel.AbstractSubscribableChannel;
-import org.springframework.integration.channel.DirectChannel;
-import org.springframework.integration.channel.QueueChannel;
+import org.springframework.integration.channel.*;
 import org.springframework.messaging.support.GenericMessage;
 
 import java.util.Timer;
@@ -33,7 +30,7 @@ public class ViewService {
          *  Hint: Change the cast in line 36
          */
 
-        techSupportChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
+        techSupportChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
         techSupportChannel.subscribe(new ViewMessageHandler());
         this.start();
     }

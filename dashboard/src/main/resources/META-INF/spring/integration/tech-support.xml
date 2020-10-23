@@ -12,7 +12,7 @@
 
     <!-- Challenge: Change this Subscribable DirectChannel to a PublishSubscribeChannel -->
     <!-- Hint: element name is 'publish-subscribe-channel' -->
-    <int:channel id="techSupportChannel" />
+    <int:publish-subscribe-channel id="techSupportChannel" />
 
     <!-- QueueChannel example (Pollable) -->
     <int:channel id="updateNotificationQueueChannel">
