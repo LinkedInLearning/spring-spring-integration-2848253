@@ -22,13 +22,13 @@ public class StatusMonitorService {
     private AppSupportStatus currentLocalStatus;
 
     // TODO - refactor to use Spring Dependency Injection
-    private AbstractSubscribableChannel techSupportChannel;
+    private AbstractSubscribableChannel statusMonitorChannel;
     private QueueChannel updateNotificationChannel;
 
     public StatusMonitorService() {
         updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
-        techSupportChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
-        techSupportChannel.subscribe(new ServiceMessageHandler());
+        statusMonitorChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("statusMonitorChannel");
+        statusMonitorChannel.subscribe(new ServiceMessageHandler());
         this.start();
     }
 
@@ -52,7 +52,7 @@ public class StatusMonitorService {
         System.out.println("Our API return indicates that a software update is " + (updateRqd ? "" : "NOT ") + "required.\n");
 
         // Send this message to the general monitor channel instead of directly to the queue
-        techSupportChannel.send(MessageBuilder.withPayload(thisStatus).build());
+        statusMonitorChannel.send(MessageBuilder.withPayload(thisStatus).build());
 
     }
 

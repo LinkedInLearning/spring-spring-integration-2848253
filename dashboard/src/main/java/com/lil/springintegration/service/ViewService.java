@@ -17,13 +17,13 @@ public class ViewService {
     private Timer timer = new Timer();
 
     // TODO - refactor to use Spring Dependency Injection
-    private AbstractSubscribableChannel techSupportChannel;
+    private AbstractSubscribableChannel statusMonitorChannel;
     private QueueChannel updateNotificationChannel;
 
     public ViewService() {
         updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
-        techSupportChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
-        techSupportChannel.subscribe(new ViewMessageHandler());
+        statusMonitorChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("statusMonitorChannel");
+        statusMonitorChannel.subscribe(new ViewMessageHandler());
         this.start();
     }
 

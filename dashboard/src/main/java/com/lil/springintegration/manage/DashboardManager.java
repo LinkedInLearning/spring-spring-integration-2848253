@@ -61,7 +61,7 @@ public class DashboardManager {
                 .build();
 
         // Now, to send our message, we need a channel! (We also need subscribers before this send will be successful.)
-        AbstractSubscribableChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupportChannel");
+        AbstractSubscribableChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("statusMonitorChannel");
         techSupportChannel.send(message);
     }
 

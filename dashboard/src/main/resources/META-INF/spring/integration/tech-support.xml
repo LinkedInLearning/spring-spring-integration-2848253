@@ -11,7 +11,7 @@
     <!-- Configure Spring Integration Tech Support message flow here -->
 
     <!-- PublishSubscribeChannel example (Subscribable) -->
-    <int:publish-subscribe-channel id="techSupportChannel" />
+    <int:publish-subscribe-channel id="statusMonitorChannel" />
 
     <!-- QueueChannel example (Pollable) -->
     <int:channel id="updateNotificationQueueChannel">
@@ -19,7 +19,7 @@
     </int:channel>
 
     <!-- Filter example -->
-    <int:filter input-channel="techSupportChannel"
+    <int:filter input-channel="statusMonitorChannel"
                 output-channel="updateNotificationQueueChannel"
                 ref="selector" />
 
