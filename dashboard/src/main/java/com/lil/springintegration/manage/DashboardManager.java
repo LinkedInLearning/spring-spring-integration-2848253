@@ -49,6 +49,9 @@ public class DashboardManager {
 
     private void initializeDashboard() {
         DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
+        DashboardManager.setDashboardStatus("softwareNotification", "(none)");
+        DashboardManager.setDashboardStatus("solarUsage", "undetermined");
+        DashboardManager.setDashboardStatus("windUsage", "undetermined");
 
         AppProperties props = (AppProperties) DashboardManager.getDashboardContext().getBean("appProperties");
 

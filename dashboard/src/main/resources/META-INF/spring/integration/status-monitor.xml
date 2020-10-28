@@ -25,5 +25,7 @@
 
     <beans:bean id="selector" class="com.lil.springintegration.service.StatusMonitorService.ServiceMessageFilter" />
 
+    <!-- Transformer example -->
+
 </beans:beans>
 

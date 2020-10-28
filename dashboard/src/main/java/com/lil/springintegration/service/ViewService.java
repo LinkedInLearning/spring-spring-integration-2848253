@@ -40,10 +40,8 @@ public class ViewService {
         /* Check queue for notifications that the software needs to be updated */
         GenericMessage<?> message = (GenericMessage<?>) updateNotificationChannel.receive(1000);
         if (message != null) {
-            // No logical change here, just a println to show the polling activity
-            System.out.println("     ...and we got the update notice from the the queue!\n");
             AppSupportStatus payload = (AppSupportStatus) message.getPayload();
-            DashboardManager.setDashboardStatus("softwareBuild", payload.getCustomerNotification());
+            DashboardManager.setDashboardStatus("softwareNotification", payload.getCustomerNotification());
         }
     }
 

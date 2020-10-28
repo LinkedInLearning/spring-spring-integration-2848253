@@ -25,6 +25,6 @@
     <import resource="integration/grid-status.xml" />
     <import resource="integration/kineteco-news.xml" />
     <import resource="integration/power-usage.xml" />
-    <import resource="integration/tech-support.xml" />
+    <import resource="integration/status-monitor.xml" />
 
 </beans:beans>

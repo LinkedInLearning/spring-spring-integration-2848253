@@ -27,10 +27,17 @@
         <div class="grid_row">
             <div class="grid_container col_1">
                 <p class="grid_header">Power Usage</p>
+                <p class="grid_body">Your net community grid contribution.</p>
+                <hr/>
+                <p class="grid_body" th:text="'Net Solar Usage: ' + ${status.solarUsage}"></p>
+                <p class="grid_body" th:text="'Net Wind Usage: ' + ${status.windUsage}"></p>
             </div>
             <div class="grid_container col_2">
                 <p class="grid_header">Tech Support</p>
+                <p class="grid_body">System support information.</p>
+                <hr/>
                 <p class="grid_body" th:text="'Software Build: ' + ${status.softwareBuild}"></p>
+                <p class="grid_body" th:text="'Notifications: ' + ${status.softwareNotification}"></p>
             </div>
         </div>
     </div>

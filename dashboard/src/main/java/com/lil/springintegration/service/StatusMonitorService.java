@@ -48,7 +48,7 @@ public class StatusMonitorService {
         boolean updateRqd = simulateOccasionalUpdateSignal();
 
         // Create our payload object from the API return value
-        AppSupportStatus thisStatus = new AppSupportStatus(currentLocalStatus.getRunningVersion(), new Date(), updateRqd);
+        AppSupportStatus thisStatus = new AppSupportStatus(currentLocalStatus.getRunningVersion(), new Date(), updateRqd, 0, 0);
         System.out.println("Our API return indicates that a software update is " + (updateRqd ? "" : "NOT ") + "required.\n");
 
         // Send this message to the general monitor channel instead of directly to the queue
