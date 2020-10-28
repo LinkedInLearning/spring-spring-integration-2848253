@@ -10,14 +10,15 @@
 
     <!-- Configure Spring Integration Tech Support message flow here -->
 
-    <!-- Challenge: Change this Subscribable DirectChannel to a PublishSubscribeChannel -->
-    <!-- Hint: element name is 'publish-subscribe-channel' -->
+    <!-- PublishSubscribeChannel example (Subscribable) -->
     <int:publish-subscribe-channel id="techSupportChannel" />
 
     <!-- QueueChannel example (Pollable) -->
     <int:channel id="updateNotificationQueueChannel">
         <int:queue capacity="5" />
     </int:channel>
+
+    <!-- Filter example -->
 
 </beans:beans>
 

@@ -21,22 +21,14 @@ public class ViewService {
     private QueueChannel updateNotificationChannel;
 
     public ViewService() {
-
-        // Initialize our updateNotificationChannel
         updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
-
-        /**
-         *  Challenge: Change this Subscribable DirectChannel to a PublishSubscribeChannel
-         *  Hint: Change the cast in line 36
-         */
-
         techSupportChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("techSupportChannel");
         techSupportChannel.subscribe(new ViewMessageHandler());
         this.start();
     }
 
     private void start() {
-        // Represents long-running process thread
+        /* Represents long-running process thread */
         timer.schedule(new TimerTask() {
             public void run() {
                 checkForNotifications();
@@ -45,16 +37,18 @@ public class ViewService {
     }
 
     private void checkForNotifications() {
-        // Check queue for notifications that the software needs to be updated
+        /* Check queue for notifications that the software needs to be updated */
         GenericMessage<?> message = (GenericMessage<?>) updateNotificationChannel.receive(1000);
         if (message != null) {
-            DashboardManager.setDashboardStatus("softwareBuild", message.getPayload().toString());
+            // No logical change here, just a println to show the polling activity
+            AppSupportStatus payload = (AppSupportStatus) message.getPayload();
+            DashboardManager.setDashboardStatus("softwareBuild", payload.getCustomerNotification());
         }
     }
 
     private static class ViewMessageHandler extends TechSupportMessageHandler {
-        protected void receiveAndAcknowledge(AppSupportStatus status) {
-            DashboardManager.setDashboardStatus("softwareBuild", status.getVersion());
+        protected void receive(AppSupportStatus status) {
+            DashboardManager.setDashboardStatus("softwareBuild", status.getRunningVersion());
         }
     }
 }

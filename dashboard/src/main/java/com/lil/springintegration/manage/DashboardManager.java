@@ -1,6 +1,6 @@
 package com.lil.springintegration.manage;
 
-import com.lil.springintegration.service.TechSupportService;
+import com.lil.springintegration.service.StatusMonitorService;
 import com.lil.springintegration.service.ViewService;
 import com.lil.springintegration.util.AppProperties;
 import com.lil.springintegration.util.AppSupportStatus;
@@ -21,8 +21,9 @@ public class DashboardManager {
     static Logger logger = LoggerFactory.getLogger(DashboardManager.class);
     private static AbstractApplicationContext context;
 
+    // TODO - refactor to use Spring Dependency Injection
     private static ViewService viewService;
-    private static TechSupportService techSupportService;
+    private static StatusMonitorService statusMonitorService;
 
     public DashboardManager() {
         DashboardManager.context = new ClassPathXmlApplicationContext("/META-INF/spring/application.xml", DashboardManager.class);
@@ -42,9 +43,8 @@ public class DashboardManager {
     }
 
     private void initializeServices() {
-        // TODO - refactor to use Spring Dependency Injection
         viewService = new ViewService();
-        techSupportService = new TechSupportService();
+        statusMonitorService = new StatusMonitorService();
     }
 
     private void initializeDashboard() {
@@ -59,11 +59,6 @@ public class DashboardManager {
         GenericMessage<?> message = (GenericMessage<?>) MessageBuilder
                 .withPayload(status)
                 .build();
-
-        /**
-         *  Challenge: Change this Subscribable DirectChannel to a PublishSubscribeChannel
-         *  Hint: Change the cast in line 69
-         */
 
         // Now, to send our message, we need a channel! (We also need subscribers before this send will be successful.)
         AbstractSubscribableChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("techSupportChannel");

@@ -4,23 +4,39 @@ import java.util.Date;
 
 public class AppSupportStatus {
 
-    private String snapVersion;
+    private String runningVersion;
 
     private Date snapTime;
 
+    private boolean updateRequired;
+
     public AppSupportStatus(String version, Date dttm) {
-        this.snapVersion = version;
+        this(version, dttm, false);
+    }
+
+    public AppSupportStatus(String version, Date dttm, boolean update) {
+        updateRequired = update;
+        this.runningVersion = version;
         this.snapTime = dttm;
     }
 
-    public String getVersion() {
-        return snapVersion;
+    public String getRunningVersion() {
+        return runningVersion;
     }
 
     public Date getTime() {
         return snapTime;
     }
 
-    public String toString() { return snapVersion + "@" + snapTime.toString(); }
+    public boolean isUpdateRequired() { return updateRequired; }
+
+    public String getCustomerNotification() {
+        if (updateRequired) {
+            return "A software update is required.";
+        }
+        return runningVersion;
+    }
+
+    public String toString() { return runningVersion + "@" + snapTime.toString() + (updateRequired ? "update" : "current"); }
 
 }
