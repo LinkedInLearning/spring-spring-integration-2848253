@@ -19,6 +19,11 @@
     </int:channel>
 
     <!-- Filter example -->
+    <int:filter input-channel="techSupportChannel"
+                output-channel="updateNotificationQueueChannel"
+                ref="selector" />
+
+    <beans:bean id="selector" class="com.lil.springintegration.service.StatusMonitorService.ServiceMessageFilter" />
 
 </beans:beans>
 

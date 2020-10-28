@@ -52,7 +52,7 @@ public class StatusMonitorService {
         System.out.println("Our API return indicates that a software update is " + (updateRqd ? "" : "NOT ") + "required.\n");
 
         // Replace direct send to queue with send to general monitor channel
-        updateNotificationChannel.send(MessageBuilder.withPayload(thisStatus).build(), 1000);
+        techSupportChannel.send(MessageBuilder.withPayload(thisStatus).build());
 
     }
 
