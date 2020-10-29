@@ -11,8 +11,12 @@
     <!-- Configure Spring Integration Tech Support message flow here -->
 
     <!-- DirectChannel example (Subscribable) -->
+    <int:channel id="rawJsonInputChannel" />
 
     <!-- Transformer example -->
+    <int:json-to-object-transformer input-channel="rawJsonInputChannel"
+                                    output-channel="statusMonitorChannel"
+                                    type="com.lil.springintegration.util.AppSupportStatus" />
 
     <!-- PublishSubscribeChannel example (Subscribable) -->
     <int:publish-subscribe-channel id="statusMonitorChannel" />
