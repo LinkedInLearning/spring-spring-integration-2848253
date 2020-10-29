@@ -48,6 +48,8 @@ public class ViewService {
     private static class ViewMessageHandler extends TechSupportMessageHandler {
         protected void receive(AppSupportStatus status) {
             DashboardManager.setDashboardStatus("softwareBuild", status.getRunningVersion());
+            DashboardManager.setDashboardStatus("solarUsage", String.valueOf(status.getNetSolar()));
+            DashboardManager.setDashboardStatus("windUsage", String.valueOf(status.getNetWind()));
         }
     }
 }

@@ -48,15 +48,19 @@ public class DashboardManager {
     }
 
     private void initializeDashboard() {
-        DashboardManager.setDashboardStatus("softwareBuild", "undetermined");
+        DashboardManager.setDashboardStatus("softwareBuild", "...");
         DashboardManager.setDashboardStatus("softwareNotification", "(none)");
-        DashboardManager.setDashboardStatus("solarUsage", "undetermined");
-        DashboardManager.setDashboardStatus("windUsage", "undetermined");
+        DashboardManager.setDashboardStatus("solarUsage", "...");
+        DashboardManager.setDashboardStatus("windUsage", "...");
 
         AppProperties props = (AppProperties) DashboardManager.getDashboardContext().getBean("appProperties");
+        String v = props.getRuntimeProperties().getProperty("software.build", "unknown");
+        Date d = new Date();
 
-        // Make a domain-specific payload object
-        AppSupportStatus status = new AppSupportStatus(props.getRuntimeProperties().getProperty("software.build", "unknown"), new Date());
+        // Make a status domain object
+        AppSupportStatus status = new AppSupportStatus();
+        status.setRunningVersion(v);
+        status.setTime(d);
 
         // Use MessageBuilder utility class to construct a Message with our domain object as payload
         GenericMessage<?> message = (GenericMessage<?>) MessageBuilder
@@ -64,8 +68,8 @@ public class DashboardManager {
                 .build();
 
         // Now, to send our message, we need a channel! (We also need subscribers before this send will be successful.)
-        AbstractSubscribableChannel techSupportChannel = (PublishSubscribeChannel) DashboardManager.context.getBean("statusMonitorChannel");
-        techSupportChannel.send(message);
+        AbstractSubscribableChannel statusMonitorChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("statusMonitorChannel");
+        statusMonitorChannel.send(message);
     }
 
 }

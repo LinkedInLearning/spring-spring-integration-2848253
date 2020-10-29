@@ -10,13 +10,12 @@
 
     <!-- Configure Spring Integration Tech Support message flow here -->
 
+    <!-- DirectChannel example (Subscribable) -->
+
+    <!-- Transformer example -->
+
     <!-- PublishSubscribeChannel example (Subscribable) -->
     <int:publish-subscribe-channel id="statusMonitorChannel" />
-
-    <!-- QueueChannel example (Pollable) -->
-    <int:channel id="updateNotificationQueueChannel">
-        <int:queue capacity="5" />
-    </int:channel>
 
     <!-- Filter example -->
     <int:filter input-channel="statusMonitorChannel"
@@ -25,7 +24,10 @@
 
     <beans:bean id="selector" class="com.lil.springintegration.service.StatusMonitorService.ServiceMessageFilter" />
 
-    <!-- Transformer example -->
+    <!-- QueueChannel example (Pollable) -->
+    <int:channel id="updateNotificationQueueChannel">
+        <int:queue capacity="5" />
+    </int:channel>
 
 </beans:beans>
 

@@ -14,7 +14,7 @@ public abstract class TechSupportMessageFilter implements MessageSelector {
         if (payload instanceof AppSupportStatus) {
             return filterMessage((AppSupportStatus) payload);
         } else {
-            throw new MessageRejectedException(message, "Unknown data type has been received.");
+            throw new MessageRejectedException(message, "Unknown data type has been received: " + payload.getClass());
         }
     }
 

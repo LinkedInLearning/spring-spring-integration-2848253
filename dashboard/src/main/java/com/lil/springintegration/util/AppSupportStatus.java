@@ -8,23 +8,11 @@ public class AppSupportStatus {
 
     private Date snapTime;
 
-    private boolean updateRequired;
+    private boolean updateRequired = false;
 
-    private int netSolar;
+    private int netSolar = 0;
 
-    private int netWind;
-
-    public AppSupportStatus(String version, Date dttm) {
-        this(version, dttm, false, 0, 0);
-    }
-
-    public AppSupportStatus(String version, Date dttm, boolean update, int solar, int wind) {
-        this.updateRequired = update;
-        this.runningVersion = version;
-        this.snapTime = dttm;
-        this.netSolar = solar;
-        this.netWind = wind;
-    }
+    private int netWind = 0;
 
     public String getRunningVersion() {
         return runningVersion;
