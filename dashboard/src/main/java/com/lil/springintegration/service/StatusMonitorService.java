@@ -4,6 +4,8 @@ import com.lil.springintegration.endpoint.TechSupportMessageFilter;
 import com.lil.springintegration.endpoint.TechSupportMessageHandler;
 import com.lil.springintegration.manage.DashboardManager;
 import com.lil.springintegration.util.AppSupportStatus;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.integration.channel.*;
@@ -23,10 +25,10 @@ public class StatusMonitorService {
 
     // TODO - refactor to use Spring Dependency Injection
     private AbstractSubscribableChannel statusMonitorChannel;
-    private QueueChannel updateNotificationChannel;
+    private QueueChannel updateNotificationQueueChannel;
 
     public StatusMonitorService() {
-        updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
+        updateNotificationQueueChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
         statusMonitorChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("statusMonitorChannel");
         statusMonitorChannel.subscribe(new ServiceMessageHandler());
         this.start();
@@ -44,14 +46,13 @@ public class StatusMonitorService {
     private void checkClientStatus() {
         /* Query REST api for client status markers */
 
-        // Simulate an API call and return value
-        boolean updateRqd = simulateOccasionalUpdateSignal();
+        // Create our payload domain object from simulated API return value
+        AppSupportStatus thisStatus = new AppSupportStatus();
+        thisStatus.setRunningVersion(currentLocalStatus.getRunningVersion());
+        thisStatus.setTime(new Date());
+        thisStatus.setIsUpdateRequired(true);
 
-        // Create our payload object from the API return value
-        AppSupportStatus thisStatus = new AppSupportStatus(currentLocalStatus.getRunningVersion(), new Date(), updateRqd, 0, 0);
-        System.out.println("Our API return indicates that a software update is " + (updateRqd ? "" : "NOT ") + "required.\n");
-
-        // Send this message to the general monitor channel instead of directly to the queue
+        // Send this message to the status monitor channel instead of directly to the queue
         statusMonitorChannel.send(MessageBuilder.withPayload(thisStatus).build());
 
     }
@@ -72,10 +73,19 @@ public class StatusMonitorService {
         this.currentLocalStatus = status;
     }
 
-    private boolean simulateOccasionalUpdateSignal() {
+    private String simulateRestApiCall() {
         Random random = new Random();
-        int x = random.nextInt(3);
-        return x == 2;
+        JSONObject json = new JSONObject();
+        try {
+            json.put("runningVersion", this.currentLocalStatus.getRunningVersion());
+            json.put("snapTime", new Date().toString());
+            json.put("updateRequired", random.nextBoolean());
+            json.put("netSolar", random.nextInt(40));
+            json.put("netWind", random.nextInt(40));
+        } catch (JSONException e) {
+            logger.info(e.toString());
+        }
+        return json.toString();
     }
 
 }
