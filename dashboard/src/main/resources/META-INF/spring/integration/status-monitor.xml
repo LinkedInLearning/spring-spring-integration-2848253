@@ -21,13 +21,10 @@
     <!-- PublishSubscribeChannel example (Subscribable) -->
     <int:publish-subscribe-channel id="statusMonitorChannel" />
 
-    <!-- ServiceActivator example -->
-    <int:service-activator
-            input-channel="statusMonitorChannel"
-            ref="accountCreditService"
-            method="creditCustomerAccount"/>
-
-    <beans:bean id="accountCreditService" class="com.lil.springintegration.service.CustomerAccountService" />
+    <!-- Challenge: Add a ServiceActivator to the message flow -->
+    <!-- Hint: element name is 'service-activator' -->
+    <!-- Hint: See here for technical specifications on ServiceActivator -->
+    <!-- https://docs.spring.io/spring-integration/reference/html/messaging-endpoints.html#service-activator -->
 
     <!-- Filter example -->
     <int:filter input-channel="statusMonitorChannel"
