@@ -1,4 +1,4 @@
-# CODE CHALLANGE 02_04
+# CODE CHALLENGE 02_04
 
 ## Instructions
 
