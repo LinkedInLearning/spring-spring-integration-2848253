@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.integration.channel.*;
 import org.springframework.messaging.support.GenericMessage;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -50,6 +52,7 @@ public class ViewService {
             DashboardManager.setDashboardStatus("softwareBuild", status.getRunningVersion());
             DashboardManager.setDashboardStatus("solarUsage", String.valueOf(status.getNetSolar()));
             DashboardManager.setDashboardStatus("windUsage", String.valueOf(status.getNetWind()));
+            DashboardManager.setDashboardStatus("creditsToDate", NumberFormat.getCurrencyInstance(Locale.UK).format(CustomerAccountService.getAccountCredit()));
         }
     }
 }

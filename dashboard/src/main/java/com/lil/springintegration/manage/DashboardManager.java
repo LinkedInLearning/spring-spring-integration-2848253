@@ -52,6 +52,7 @@ public class DashboardManager {
         DashboardManager.setDashboardStatus("softwareNotification", "(none)");
         DashboardManager.setDashboardStatus("solarUsage", "...");
         DashboardManager.setDashboardStatus("windUsage", "...");
+        DashboardManager.setDashboardStatus("creditsToDate", "...");
 
         AppProperties props = (AppProperties) DashboardManager.getDashboardContext().getBean("appProperties");
         String v = props.getRuntimeProperties().getProperty("software.build", "unknown");

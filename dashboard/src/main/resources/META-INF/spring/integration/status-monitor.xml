@@ -11,24 +11,32 @@
     <!-- Configure Spring Integration Tech Support message flow here -->
 
     <!-- DirectChannel example (Subscribable) -->
-    <int:channel id="rawJsonInputChannel" />
+    <int:channel id="apiInputChannel" />
 
     <!-- Transformer example (JSON to Object) -->
-    <int:json-to-object-transformer input-channel="rawJsonInputChannel"
+    <int:json-to-object-transformer input-channel="apiInputChannel"
                                     output-channel="statusMonitorChannel"
                                     type="com.lil.springintegration.util.AppSupportStatus" />
 
     <!-- PublishSubscribeChannel example (Subscribable) -->
     <int:publish-subscribe-channel id="statusMonitorChannel" />
 
+    <!-- ServiceActivator example -->
+    <int:service-activator
+            input-channel="statusMonitorChannel"
+            ref="accountCreditService"
+            method="creditCustomerAccount"/>
+
+    <beans:bean id="accountCreditService" class="com.lil.springintegration.service.CustomerAccountService" />
+
     <!-- Filter example -->
     <int:filter input-channel="statusMonitorChannel"
                 output-channel="updateNotificationQueueChannel"
-                ref="selector" />
+                ref="updateNoticeSelector" />
 
-    <beans:bean id="selector" class="com.lil.springintegration.service.StatusMonitorService.ServiceMessageFilter" />
+    <beans:bean id="updateNoticeSelector" class="com.lil.springintegration.service.StatusMonitorService.ServiceMessageFilter" />
 
-    <!-- QueueChannel example (Pollable) -->
+    <!-- QueueChannel examples (Pollable) -->
     <int:channel id="updateNotificationQueueChannel">
         <int:queue capacity="5" />
     </int:channel>

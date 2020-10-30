@@ -25,10 +25,10 @@ public class StatusMonitorService {
 
     // TODO - refactor to use Spring Dependency Injection
     private AbstractSubscribableChannel statusMonitorChannel;
-    private DirectChannel rawJsonInputChannel;
+    private DirectChannel apiInputChannel;
 
     public StatusMonitorService() {
-        rawJsonInputChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("rawJsonInputChannel");
+        apiInputChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("apiInputChannel");
         statusMonitorChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("statusMonitorChannel");
         statusMonitorChannel.subscribe(new ServiceMessageHandler());
         this.start();
@@ -47,10 +47,12 @@ public class StatusMonitorService {
         /* Query REST api for client status markers */
 
         String rawJson = simulateRestApiCall();
+        System.out.println(rawJson);
 
         // Send this message to the status monitor channel instead of directly to the queue
-        rawJsonInputChannel.send(MessageBuilder.withPayload(rawJson).build());
-
+        apiInputChannel.send(MessageBuilder
+                .withPayload(rawJson)
+                .build());
     }
 
     public static class ServiceMessageFilter extends TechSupportMessageFilter {

@@ -33,6 +33,10 @@ public class AppSupportStatus {
     public int getNetWind() { return netWind; }
     public void setNetWind(int wind) { this.netWind = wind; }
 
+    public double getAccountCreditEarned() {
+        return (netSolar + netWind) * .0001;
+    }
+
     public String getCustomerNotification() {
         if (updateRequired) {
             return "A software update is required.";
