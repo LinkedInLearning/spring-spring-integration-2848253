@@ -28,7 +28,7 @@ public class DashboardManager {
     public DashboardManager() {
         DashboardManager.context = new ClassPathXmlApplicationContext("/META-INF/spring/application.xml", DashboardManager.class);
         initializeServices();
-        initializeDashboard();
+        initializeView();
     }
 
     public static ClassPathXmlApplicationContext getDashboardContext() { return (ClassPathXmlApplicationContext) DashboardManager.context; }
@@ -47,7 +47,7 @@ public class DashboardManager {
         statusMonitorService = new StatusMonitorService();
     }
 
-    private void initializeDashboard() {
+    private void initializeView() {
         DashboardManager.setDashboardStatus("softwareBuild", "...");
         DashboardManager.setDashboardStatus("softwareNotification", "(none)");
         DashboardManager.setDashboardStatus("solarUsage", "...");

@@ -13,7 +13,7 @@
     <!-- DirectChannel example (Subscribable) -->
     <int:channel id="rawJsonInputChannel" />
 
-    <!-- Transformer example -->
+    <!-- Transformer example (JSON to Object) -->
     <int:json-to-object-transformer input-channel="rawJsonInputChannel"
                                     output-channel="statusMonitorChannel"
                                     type="com.lil.springintegration.util.AppSupportStatus" />
