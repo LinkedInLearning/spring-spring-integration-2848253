@@ -3,10 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
            http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context.xsd">
+           http://www.springframework.org/schema/context/spring-context.xsd
+    	   http://www.springframework.org/schema/jdbc
+           https://www.springframework.org/schema/jdbc/spring-jdbc.xsd" >
 
     <!-- Spring Application "Parent" Context -->
 
@@ -15,16 +18,25 @@
     <beans:bean id="appProperties" class="com.lil.springintegration.util.AppProperties">
         <property name="runtimeProperties">
             <props>
-                <prop key = "software.build">${software.build}</prop>
-                <prop key = "server.port">${server.port}</prop>
+                <prop key="software.build">${software.build}</prop>
+                <prop key="server.port">${server.port}</prop>
             </props>
         </property>
     </beans:bean>
 
+    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <beans:property name="driverClass" value="org.h2.Driver"/>
+        <beans:property name="url" value="jdbc:h2:mem:database;DB_CLOSE_DELAY=-1"/>
+    </beans:bean>
+
+    <jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS">
+        <jdbc:script location="schema.sql"/>
+        <jdbc:script location="data.sql"/>
+    </jdbc:initialize-database>
+
     <!-- Import Spring Integration Message Flows Here -->
     <import resource="integration/grid-status.xml" />
     <import resource="integration/kineteco-news.xml" />
-    <import resource="integration/power-usage.xml" />
     <import resource="integration/status-monitor.xml" />
 
 </beans:beans>

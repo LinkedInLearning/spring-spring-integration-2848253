@@ -9,7 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.channel.AbstractSubscribableChannel;
+import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.PublishSubscribeChannel;
+import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHandler;
+import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
 import java.util.Date;
@@ -24,9 +29,11 @@ public class DashboardManager {
     // TODO - refactor to use Spring Dependency Injection
     private static ViewService viewService;
     private static StatusMonitorService statusMonitorService;
+    private static SourcePollingChannelAdapter dataPoller;
 
     public DashboardManager() {
         DashboardManager.context = new ClassPathXmlApplicationContext("/META-INF/spring/application.xml", DashboardManager.class);
+        dataPoller = (SourcePollingChannelAdapter) DashboardManager.getDashboardContext().getBean("gridStatusPoller");
         initializeServices();
         initializeView();
     }
@@ -45,6 +52,7 @@ public class DashboardManager {
     private void initializeServices() {
         viewService = new ViewService();
         statusMonitorService = new StatusMonitorService();
+        dataPoller.start();
     }
 
     private void initializeView() {

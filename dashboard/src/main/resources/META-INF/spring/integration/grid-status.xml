@@ -2,14 +2,31 @@
 <beans:beans xmlns="http://www.springframework.org/schema/integration"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
+
              xmlns:int="http://www.springframework.org/schema/integration"
+             xmlns:int-jdbc="http://www.springframework.org/schema/integration/jdbc"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
 			   https://www.springframework.org/schema/beans/spring-beans.xsd
 			   http://www.springframework.org/schema/integration
-			   https://www.springframework.org/schema/integration/spring-integration.xsd" >
+			   https://www.springframework.org/schema/integration/spring-integration.xsd
+               http://www.springframework.org/schema/integration/jdbc
+               https://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd ">
 
     <!-- Configure Spring Integration Grid Status message flow here -->
 
+    <!-- JDBC Adapter Example -->
+    <int:channel id="dataChannel" />
+
+    <int-jdbc:inbound-channel-adapter id="gridStatusPoller"
+                                      channel="dataChannel"
+                                      query="select DISPLAY from DEVICE where ISUP = false"
+                                      data-source="dataSource"
+                                      auto-startup="false">
+        <int:poller fixed-rate="5000" />
+    </int-jdbc:inbound-channel-adapter>
+
+    <!-- Test Configuration -->
     <beans:bean id="testMessageFlowImports" class="java.lang.Object"/>
+
 
 </beans:beans>

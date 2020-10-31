@@ -47,7 +47,6 @@ public class StatusMonitorService {
         /* Query REST api for client status markers */
 
         String rawJson = simulateRestApiCall();
-        System.out.println(rawJson);
 
         // Send this message to the status monitor channel instead of directly to the queue
         apiInputChannel.send(MessageBuilder

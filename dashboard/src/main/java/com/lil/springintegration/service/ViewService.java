@@ -6,6 +6,9 @@ import com.lil.springintegration.util.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.integration.channel.*;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHandler;
+import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.support.GenericMessage;
 
 import java.text.NumberFormat;
@@ -21,11 +24,14 @@ public class ViewService {
     // TODO - refactor to use Spring Dependency Injection
     private AbstractSubscribableChannel statusMonitorChannel;
     private QueueChannel updateNotificationChannel;
+    private DirectChannel dataChannel;
 
     public ViewService() {
         updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
         statusMonitorChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("statusMonitorChannel");
         statusMonitorChannel.subscribe(new ViewMessageHandler());
+        dataChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("dataChannel");
+        dataChannel.subscribe(new DeviceMessageHandler());
         this.start();
     }
 
@@ -53,6 +59,13 @@ public class ViewService {
             DashboardManager.setDashboardStatus("solarUsage", String.valueOf(status.getNetSolar()));
             DashboardManager.setDashboardStatus("windUsage", String.valueOf(status.getNetWind()));
             DashboardManager.setDashboardStatus("creditsToDate", NumberFormat.getCurrencyInstance(Locale.UK).format(CustomerAccountService.getAccountCredit()));
+        }
+    }
+
+    private static class DeviceMessageHandler implements MessageHandler {
+        @Override
+        public void handleMessage(Message<?> message) throws MessagingException {
+            System.out.println(message.getPayload().toString());
         }
     }
 }
