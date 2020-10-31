@@ -24,7 +24,7 @@ public class ViewService {
     // TODO - refactor to use Spring Dependency Injection
     private AbstractSubscribableChannel statusMonitorChannel;
     private QueueChannel updateNotificationChannel;
-    private DirectChannel dataChannel;
+    private DirectChannel dataChannel, twitterChannel;
 
     public ViewService() {
         updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
@@ -32,6 +32,8 @@ public class ViewService {
         statusMonitorChannel.subscribe(new ViewMessageHandler());
         dataChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("dataChannel");
         dataChannel.subscribe(new DeviceMessageHandler());
+        twitterChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("twitterChannel");
+        twitterChannel.subscribe(new DeviceMessageHandler());
         this.start();
     }
 
