@@ -6,13 +6,10 @@ import com.lil.springintegration.util.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.integration.channel.*;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.support.GenericMessage;
+import org.springframework.social.twitter.api.Tweet;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,9 +44,14 @@ public class ViewService {
         /* Check queue for notifications that the software needs to be updated */
         GenericMessage<?> message = (GenericMessage<?>) updateNotificationChannel.receive(1000);
         if (message != null) {
-            AppSupportStatus payload = (AppSupportStatus) message.getPayload();
-            DashboardManager.setDashboardStatus("softwareNotification", payload.getCustomerSoftwareNotification());
-            DashboardManager.setDashboardStatus("deviceNotification", payload.getCustomerDeviceNotification());
+            if (message.getPayload() instanceof AppSupportStatus ) {
+                AppSupportStatus payload = (AppSupportStatus) message.getPayload();
+                DashboardManager.setDashboardStatus("softwareNotification", payload.getCustomerSoftwareNotification());
+                DashboardManager.setDashboardStatus("deviceNotification", payload.getCustomerDeviceNotification());
+            } else if (message.getPayload() instanceof Tweet) {
+                Tweet payload = (Tweet) message.getPayload();
+                DashboardManager.setDashboardStatus("latestTweets", payload.getText());
+            }
         }
     }
 
