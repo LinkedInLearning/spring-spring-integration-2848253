@@ -13,25 +13,13 @@
 
     <!-- Configure Spring Integration Grid Status message flow here -->
 
-    <!-- JDBC Adapter Example -->
-    <int:channel id="dataChannel" />
+    <!-- Direct Channel example -->
 
     <!-- Custom Transformer example -->
-    <int:transformer input-channel="dataChannel"
-                     output-channel="statusMonitorChannel"
-                     method="transform"
-                     ref="transformer" />
 
     <beans:bean id="transformer" class="com.lil.springintegration.endpoint.JdbcMessageTransformer" />
 
     <!-- JDBC Inbound Polling Adapter Example -->
-    <int-jdbc:inbound-channel-adapter id="gridStatusPoller"
-                                      channel="dataChannel"
-                                      query="select DISPLAY from DEVICE where ISUP = false"
-                                      data-source="dataSource"
-                                      auto-startup="false">
-        <int:poller fixed-rate="5000" />
-    </int-jdbc:inbound-channel-adapter>
 
     <!-- Test Configuration -->
     <beans:bean id="testMessageFlowImports" class="java.lang.Object"/>
