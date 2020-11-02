@@ -36,6 +36,7 @@ public class StatusMonitorService {
 
     private void start() {
         /* Represents long-running process thread */
+        // TODO - refactor to use Spring Integration poller
         timer.schedule(new TimerTask() {
             public void run() {
                 checkClientStatus();
