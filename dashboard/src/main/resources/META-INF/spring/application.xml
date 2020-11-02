@@ -35,8 +35,8 @@
     </jdbc:initialize-database>
 
     <!-- Import Spring Integration Message Flows Here -->
-    <import resource="integration/grid-status.xml" />
-    <import resource="integration/kineteco-news.xml" />
+    <import resource="integration/jdbc.xml" />
+    <import resource="integration/twitter.xml" />
     <import resource="integration/status-monitor.xml" />
 
 </beans:beans>
