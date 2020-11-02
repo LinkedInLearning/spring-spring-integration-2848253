@@ -23,8 +23,12 @@
 
     <!-- Challenge: Add a ServiceActivator to the message flow -->
     <!-- Hint: element name is 'service-activator' -->
+    <!-- Hint: you will need three attributes: input-channel, ref, method/> -->
     <!-- Hint: See here for technical specifications on ServiceActivator -->
     <!-- https://docs.spring.io/spring-integration/reference/html/messaging-endpoints.html#service-activator -->
+
+    <!-- Hint: This is the bean you should reference in your service-activator declaration -->
+    <beans:bean id="accountCreditService" class="com.lil.springintegration.service.CustomerAccountService" />
 
     <!-- Filter example -->
     <int:filter input-channel="statusMonitorChannel"
