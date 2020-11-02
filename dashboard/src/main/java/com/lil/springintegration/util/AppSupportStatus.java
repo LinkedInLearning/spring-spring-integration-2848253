@@ -1,18 +1,18 @@
 package com.lil.springintegration.util;
 
+import org.springframework.util.LinkedCaseInsensitiveMap;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 public class AppSupportStatus {
 
     private String runningVersion;
-
     private Date snapTime;
-
     private boolean updateRequired = false;
-
     private int netSolar = 0;
-
     private int netWind = 0;
+    private ArrayList<LinkedCaseInsensitiveMap> deviceOut = new ArrayList();
 
     public String getRunningVersion() {
         return runningVersion;
@@ -33,17 +33,29 @@ public class AppSupportStatus {
     public int getNetWind() { return netWind; }
     public void setNetWind(int wind) { this.netWind = wind; }
 
+    public ArrayList<LinkedCaseInsensitiveMap> getDeviceOut() { return this.deviceOut; }
+    public void setDeviceOut(ArrayList<LinkedCaseInsensitiveMap> out) { this.deviceOut = out; }
+
     public double getAccountCreditEarned() {
         return (netSolar + netWind) * .0001;
     }
 
-    public String getCustomerNotification() {
+    public boolean isDeviceOut() { return deviceOut.iterator().hasNext(); }
+
+    public String getCustomerSoftwareNotification() {
         if (updateRequired) {
             return "A software update is required.";
         }
         return "(none)";
     }
 
-    public String toString() { return runningVersion + "@" + snapTime.toString() + (updateRequired ? "|update" : "|current") + "|" + netSolar + "|" + netWind; }
+    public String getCustomerDeviceNotification() {
+        if (!deviceOut.isEmpty()) {
+            return "Your power grid has one or more devices offline. Details...";
+        }
+        return null;
+    }
+
+    public String toString() { return runningVersion + "@" + snapTime.toString() + (updateRequired ? "|update" : "|current") + "|" + netSolar + "|" + netWind + "|" + deviceOut.toString(); }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.support.GenericMessage;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,16 +25,11 @@ public class ViewService {
     // TODO - refactor to use Spring Dependency Injection
     private AbstractSubscribableChannel statusMonitorChannel;
     private QueueChannel updateNotificationChannel;
-    private DirectChannel dataChannel, twitterChannel;
 
     public ViewService() {
         updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
         statusMonitorChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("statusMonitorChannel");
         statusMonitorChannel.subscribe(new ViewMessageHandler());
-        dataChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("dataChannel");
-        dataChannel.subscribe(new DeviceMessageHandler());
-        twitterChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("twitterChannel");
-        twitterChannel.subscribe(new DeviceMessageHandler());
         this.start();
     }
 
@@ -41,6 +37,7 @@ public class ViewService {
         /* Represents long-running process thread */
         timer.schedule(new TimerTask() {
             public void run() {
+                // Would typically be dependent on some external service resource where throttling was a factor, like email
                 checkForNotifications();
             }
         }, 3000, 3000);
@@ -51,7 +48,8 @@ public class ViewService {
         GenericMessage<?> message = (GenericMessage<?>) updateNotificationChannel.receive(1000);
         if (message != null) {
             AppSupportStatus payload = (AppSupportStatus) message.getPayload();
-            DashboardManager.setDashboardStatus("softwareNotification", payload.getCustomerNotification());
+            DashboardManager.setDashboardStatus("softwareNotification", payload.getCustomerSoftwareNotification());
+            DashboardManager.setDashboardStatus("deviceNotification", payload.getCustomerDeviceNotification());
         }
     }
 
@@ -64,10 +62,4 @@ public class ViewService {
         }
     }
 
-    private static class DeviceMessageHandler implements MessageHandler {
-        @Override
-        public void handleMessage(Message<?> message) throws MessagingException {
-            System.out.println(message.getPayload().toString());
-        }
-    }
 }

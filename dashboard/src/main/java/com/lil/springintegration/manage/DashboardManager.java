@@ -17,6 +17,9 @@ import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.util.LinkedCaseInsensitiveMap;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
@@ -64,6 +67,7 @@ public class DashboardManager {
         DashboardManager.setDashboardStatus("solarUsage", "...");
         DashboardManager.setDashboardStatus("windUsage", "...");
         DashboardManager.setDashboardStatus("creditsToDate", "...");
+        DashboardManager.setDashboardStatus("devicesNotification", "");
 
         AppProperties props = (AppProperties) DashboardManager.getDashboardContext().getBean("appProperties");
         String v = props.getRuntimeProperties().getProperty("software.build", "unknown");

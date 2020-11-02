@@ -56,7 +56,7 @@ public class StatusMonitorService {
 
     public static class ServiceMessageFilter extends TechSupportMessageFilter {
         protected boolean filterMessage(AppSupportStatus status) {
-            return status.isUpdateRequired();
+            return status.isUpdateRequired() || status.isDeviceOut();
         }
     }
 
