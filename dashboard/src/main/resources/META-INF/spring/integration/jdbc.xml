@@ -13,7 +13,7 @@
 
     <!-- Configure Spring Integration Grid Status message flow here -->
 
-    <!-- JDBC Adapter Example -->
+    <!-- Direct Channel example -->
     <int:channel id="dataChannel" />
 
     <!-- Custom Transformer example -->
