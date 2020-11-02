@@ -36,5 +36,4 @@
     <!-- Test Configuration -->
     <beans:bean id="testMessageFlowImports" class="java.lang.Object"/>
 
-
 </beans:beans>
