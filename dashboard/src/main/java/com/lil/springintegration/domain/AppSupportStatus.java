@@ -1,4 +1,4 @@
-package com.lil.springintegration.util;
+package com.lil.springintegration.domain;
 
 import org.springframework.util.LinkedCaseInsensitiveMap;
 

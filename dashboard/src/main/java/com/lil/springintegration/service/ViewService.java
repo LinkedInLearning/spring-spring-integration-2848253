@@ -2,7 +2,7 @@ package com.lil.springintegration.service;
 
 import com.lil.springintegration.endpoint.TechSupportMessageHandler;
 import com.lil.springintegration.manage.DashboardManager;
-import com.lil.springintegration.util.AppSupportStatus;
+import com.lil.springintegration.domain.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.integration.channel.*;

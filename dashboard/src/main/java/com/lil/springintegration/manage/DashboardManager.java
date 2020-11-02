@@ -2,24 +2,18 @@ package com.lil.springintegration.manage;
 
 import com.lil.springintegration.service.StatusMonitorService;
 import com.lil.springintegration.service.ViewService;
-import com.lil.springintegration.util.AppProperties;
-import com.lil.springintegration.util.AppSupportStatus;
+import com.lil.springintegration.domain.AppProperties;
+import com.lil.springintegration.domain.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.channel.AbstractSubscribableChannel;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.util.LinkedCaseInsensitiveMap;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 

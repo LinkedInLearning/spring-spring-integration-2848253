@@ -3,7 +3,7 @@ package com.lil.springintegration.service;
 import com.lil.springintegration.endpoint.TechSupportMessageFilter;
 import com.lil.springintegration.endpoint.TechSupportMessageHandler;
 import com.lil.springintegration.manage.DashboardManager;
-import com.lil.springintegration.util.AppSupportStatus;
+import com.lil.springintegration.domain.AppSupportStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;

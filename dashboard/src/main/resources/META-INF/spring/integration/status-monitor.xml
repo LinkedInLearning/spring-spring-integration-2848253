@@ -16,7 +16,7 @@
     <!-- Transformer example (JSON to Object) -->
     <int:json-to-object-transformer input-channel="apiInputChannel"
                                     output-channel="statusMonitorChannel"
-                                    type="com.lil.springintegration.util.AppSupportStatus" />
+                                    type="com.lil.springintegration.domain.AppSupportStatus" />
 
     <!-- PublishSubscribeChannel example (Subscribable) -->
     <int:publish-subscribe-channel id="statusMonitorChannel" />

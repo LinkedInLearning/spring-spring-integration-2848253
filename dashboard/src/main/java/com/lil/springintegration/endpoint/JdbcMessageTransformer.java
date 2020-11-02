@@ -1,6 +1,6 @@
 package com.lil.springintegration.endpoint;
 
-import com.lil.springintegration.util.AppSupportStatus;
+import com.lil.springintegration.domain.AppSupportStatus;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.util.ArrayList;
