@@ -36,7 +36,9 @@
 
     <!-- Import Spring Integration Message Flows Here -->
     <import resource="integration/jdbc.xml" />
-    <import resource="integration/twitter.xml" />
+    <!-- To demo the Twitter adapter, first insert your Twitter oauth configuration into application.properties-->
+    <!-- Then uncomment he line below and run the application -->
+    <!--<import resource="integration/twitter.xml" />-->
     <import resource="integration/status-monitor.xml" />
 
 </beans:beans>

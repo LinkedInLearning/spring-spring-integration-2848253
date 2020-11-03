@@ -32,7 +32,9 @@ public class DashboardManager {
     public DashboardManager() {
         DashboardManager.context = new ClassPathXmlApplicationContext("/META-INF/spring/application.xml", DashboardManager.class);
         dataPoller = (SourcePollingChannelAdapter) DashboardManager.getDashboardContext().getBean("gridStatusPoller");
-        twitterPoller = (SourcePollingChannelAdapter) DashboardManager.getDashboardContext().getBean("twitterPoller");
+        if (DashboardManager.getDashboardContext().containsBean("twitterPoller")) {
+            twitterPoller = (SourcePollingChannelAdapter) DashboardManager.getDashboardContext().getBean("twitterPoller");
+        }
         initializeServices();
         initializeView();
     }
@@ -52,7 +54,9 @@ public class DashboardManager {
         viewService = new ViewService();
         statusMonitorService = new StatusMonitorService();
         dataPoller.start();
-        twitterPoller.start();
+        if (twitterPoller != null) {
+            twitterPoller.start();
+        }
     }
 
     private void initializeView() {
