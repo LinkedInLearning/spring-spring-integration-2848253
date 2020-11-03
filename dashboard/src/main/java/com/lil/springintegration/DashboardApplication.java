@@ -2,6 +2,9 @@ package com.lil.springintegration;
 
 import com.lil.springintegration.manage.DashboardManager;
 import com.lil.springintegration.domain.AppProperties;
+import com.lil.springintegration.service.StatusMonitorService;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Date;
+import java.util.Random;
 
 @SpringBootApplication
 @Controller
@@ -40,7 +46,22 @@ public class DashboardApplication {
 
 	@RequestMapping(value = "/api")
 	public ResponseEntity<Object> getProducts() {
-		return new ResponseEntity<>("OK", HttpStatus.OK);
+		return new ResponseEntity<>(simulateRestApiCall(), HttpStatus.OK);
+	}
+
+	private static String simulateRestApiCall() {
+		Random random = new Random();
+		JSONObject json = new JSONObject();
+		try {
+			json.put("runningVersion", "unknown");
+			json.put("snapTime", new Date().toString());
+			json.put("updateRequired", random.nextBoolean());
+			json.put("netSolar", random.nextInt(40));
+			json.put("netWind", random.nextInt(40));
+		} catch (JSONException e) {
+			logger.info(e.toString());
+		}
+		return json.toString();
 	}
 
 }

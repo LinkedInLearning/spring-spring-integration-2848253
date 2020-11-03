@@ -11,21 +11,6 @@
                http://www.springframework.org/schema/integration/http
                http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
 
-    <!-- Configure Spring Integration Tech Support message flow here -->
-
-    <int:channel id="getSendChannel" />
-
-    <int:channel id="getReceiveChannel">
-        <int:queue capacity='10' />
-    </int:channel>
-
-    <int-http:outbound-gateway id="getOutboundGateway"
-                           request-channel="getSendChannel"
-                           default-url="http://localhost:9090/api"
-                           http-method="GET"
-                           reply-channel="getReceiveChannel"
-                           request-timeout="2000"
-                           expected-response-type="org.json.JSONObject">
-    </int-http:outbound-gateway>
+    <!-- Configure Spring Integration message flow here -->
 
 </beans:beans>
