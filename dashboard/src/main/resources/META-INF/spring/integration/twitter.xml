@@ -15,11 +15,11 @@
 
     <int-twitter:search-inbound-channel-adapter
             id="twitterPoller"
-            query="#a2hosting"
+            query="#sustainability #kineteconews"
             channel="updateNotificationQueueChannel"
             twitter-template="twitterAuth"
             auto-startup="false">
-        <int:poller fixed-rate="5000" max-messages-per-poll="1"/>
+        <int:poller fixed-rate="7000" max-messages-per-poll="1"/>
     </int-twitter:search-inbound-channel-adapter>
 
     <beans:bean id="twitterAuth" class="org.springframework.social.twitter.api.impl.TwitterTemplate">
