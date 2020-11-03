@@ -1,6 +1,6 @@
 package com.lil.springintegration.service;
 
-import com.lil.springintegration.util.AppSupportStatus;
+import com.lil.springintegration.domain.AppSupportStatus;
 
 public class CustomerAccountService {
 

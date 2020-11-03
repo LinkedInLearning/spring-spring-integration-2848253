@@ -19,9 +19,15 @@
         <div class="grid_row">
             <div class="grid_container col_1">
                 <p class="grid_header">Grid Status</p>
+                <p class="grid_body">Your device status.</p>
+                <hr/>
+                <p class="grid_body" th:text="${status.deviceNotification}"></p>
             </div>
             <div class="grid_container col_2">
                 <p class="grid_header">kinetECO News</p>
+                <p class="grid_body">kinetECO on Twitter.</p>
+                <hr/>
+                <p class="grid_body" th:text="${status.latestTweets}"></p>
             </div>
         </div>
         <div class="grid_row">

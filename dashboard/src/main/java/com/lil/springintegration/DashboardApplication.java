@@ -1,7 +1,7 @@
 package com.lil.springintegration;
 
 import com.lil.springintegration.manage.DashboardManager;
-import com.lil.springintegration.util.AppProperties;
+import com.lil.springintegration.domain.AppProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -34,7 +34,7 @@ public class DashboardApplication {
 
 	@GetMapping("/")
 	public String dashboard(Model model) {
-		model.addAttribute("status", dashboardManager.getDashboardStatus());
+		model.addAttribute("status", DashboardManager.getDashboardStatus());
 		return "dashboard";
 	}
 

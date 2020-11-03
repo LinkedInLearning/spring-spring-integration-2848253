@@ -2,21 +2,18 @@ package com.lil.springintegration.manage;
 
 import com.lil.springintegration.service.StatusMonitorService;
 import com.lil.springintegration.service.ViewService;
-import com.lil.springintegration.util.AppProperties;
-import com.lil.springintegration.util.AppSupportStatus;
+import com.lil.springintegration.domain.AppProperties;
+import com.lil.springintegration.domain.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.channel.AbstractSubscribableChannel;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.endpoint.SourcePollingChannelAdapter;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.messaging.support.MessageBuilder;
+
 import java.util.Date;
 import java.util.Properties;
 
@@ -35,7 +32,9 @@ public class DashboardManager {
     public DashboardManager() {
         DashboardManager.context = new ClassPathXmlApplicationContext("/META-INF/spring/application.xml", DashboardManager.class);
         dataPoller = (SourcePollingChannelAdapter) DashboardManager.getDashboardContext().getBean("gridStatusPoller");
-        twitterPoller = (SourcePollingChannelAdapter) DashboardManager.getDashboardContext().getBean("twitterPoller");
+        if (DashboardManager.getDashboardContext().containsBean("twitterPoller")) {
+            twitterPoller = (SourcePollingChannelAdapter) DashboardManager.getDashboardContext().getBean("twitterPoller");
+        }
         initializeServices();
         initializeView();
     }
@@ -55,7 +54,9 @@ public class DashboardManager {
         viewService = new ViewService();
         statusMonitorService = new StatusMonitorService();
         dataPoller.start();
-        twitterPoller.start();
+        if (twitterPoller != null) {
+            twitterPoller.start();
+        }
     }
 
     private void initializeView() {
@@ -64,6 +65,8 @@ public class DashboardManager {
         DashboardManager.setDashboardStatus("solarUsage", "...");
         DashboardManager.setDashboardStatus("windUsage", "...");
         DashboardManager.setDashboardStatus("creditsToDate", "...");
+        DashboardManager.setDashboardStatus("devicesNotification", "");
+        DashboardManager.setDashboardStatus("latestTweets", "");
 
         AppProperties props = (AppProperties) DashboardManager.getDashboardContext().getBean("appProperties");
         String v = props.getRuntimeProperties().getProperty("software.build", "unknown");

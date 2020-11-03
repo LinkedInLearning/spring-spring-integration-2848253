@@ -15,7 +15,7 @@
 
     <context:property-placeholder location="classpath:application.properties" />
 
-    <beans:bean id="appProperties" class="com.lil.springintegration.util.AppProperties">
+    <beans:bean id="appProperties" class="com.lil.springintegration.domain.AppProperties">
         <property name="runtimeProperties">
             <props>
                 <prop key="software.build">${software.build}</prop>
@@ -35,8 +35,10 @@
     </jdbc:initialize-database>
 
     <!-- Import Spring Integration Message Flows Here -->
-    <import resource="integration/grid-status.xml" />
-    <import resource="integration/kineteco-news.xml" />
+    <import resource="integration/jdbc.xml" />
+    <!-- To demo the Twitter adapter, first insert your Twitter oauth configuration into application.properties-->
+    <!-- Then uncomment he line below and run the application -->
+    <!--<import resource="integration/twitter.xml" />-->
     <import resource="integration/status-monitor.xml" />
 
 </beans:beans>

@@ -13,15 +13,15 @@
 
     <!-- Configure Spring Integration KinetECO News message flow here -->
 
-    <int:channel id="twitterChannel" />
+    <!-- To demo this Twitter adapter, see instructions on application.xml line 39 -->
 
     <int-twitter:search-inbound-channel-adapter
             id="twitterPoller"
-            query="#a2hosting"
-            channel="twitterChannel"
+            query="#sustainability #kineteconews"
+            channel="updateNotificationQueueChannel"
             twitter-template="twitterAuth"
             auto-startup="false">
-        <int:poller fixed-rate="5000" max-messages-per-poll="3"/>
+        <int:poller fixed-rate="7000" max-messages-per-poll="1"/>
     </int-twitter:search-inbound-channel-adapter>
 
     <beans:bean id="twitterAuth" class="org.springframework.social.twitter.api.impl.TwitterTemplate">

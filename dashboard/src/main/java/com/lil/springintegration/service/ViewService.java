@@ -2,14 +2,12 @@ package com.lil.springintegration.service;
 
 import com.lil.springintegration.endpoint.TechSupportMessageHandler;
 import com.lil.springintegration.manage.DashboardManager;
-import com.lil.springintegration.util.AppSupportStatus;
+import com.lil.springintegration.domain.AppSupportStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.integration.channel.*;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.support.GenericMessage;
+import org.springframework.social.twitter.api.Tweet;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -24,16 +22,11 @@ public class ViewService {
     // TODO - refactor to use Spring Dependency Injection
     private AbstractSubscribableChannel statusMonitorChannel;
     private QueueChannel updateNotificationChannel;
-    private DirectChannel dataChannel, twitterChannel;
 
     public ViewService() {
         updateNotificationChannel = (QueueChannel) DashboardManager.getDashboardContext().getBean("updateNotificationQueueChannel");
         statusMonitorChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("statusMonitorChannel");
         statusMonitorChannel.subscribe(new ViewMessageHandler());
-        dataChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("dataChannel");
-        dataChannel.subscribe(new DeviceMessageHandler());
-        twitterChannel = (DirectChannel) DashboardManager.getDashboardContext().getBean("twitterChannel");
-        twitterChannel.subscribe(new DeviceMessageHandler());
         this.start();
     }
 
@@ -41,6 +34,7 @@ public class ViewService {
         /* Represents long-running process thread */
         timer.schedule(new TimerTask() {
             public void run() {
+                // Would typically be dependent on some external service resource where throttling was a factor, like email
                 checkForNotifications();
             }
         }, 3000, 3000);
@@ -50,8 +44,14 @@ public class ViewService {
         /* Check queue for notifications that the software needs to be updated */
         GenericMessage<?> message = (GenericMessage<?>) updateNotificationChannel.receive(1000);
         if (message != null) {
-            AppSupportStatus payload = (AppSupportStatus) message.getPayload();
-            DashboardManager.setDashboardStatus("softwareNotification", payload.getCustomerNotification());
+            if (message.getPayload() instanceof AppSupportStatus ) {
+                AppSupportStatus payload = (AppSupportStatus) message.getPayload();
+                DashboardManager.setDashboardStatus("softwareNotification", payload.getCustomerSoftwareNotification());
+                DashboardManager.setDashboardStatus("deviceNotification", payload.getCustomerDeviceNotification());
+            } else if (message.getPayload() instanceof Tweet) {
+                Tweet payload = (Tweet) message.getPayload();
+                DashboardManager.setDashboardStatus("latestTweets", payload.getText());
+            }
         }
     }
 
@@ -64,10 +64,4 @@ public class ViewService {
         }
     }
 
-    private static class DeviceMessageHandler implements MessageHandler {
-        @Override
-        public void handleMessage(Message<?> message) throws MessagingException {
-            System.out.println(message.getPayload().toString());
-        }
-    }
 }

@@ -1,6 +1,6 @@
 package com.lil.springintegration.endpoint;
 
-import com.lil.springintegration.util.AppSupportStatus;
+import com.lil.springintegration.domain.AppSupportStatus;
 import org.springframework.integration.MessageRejectedException;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHandler;
