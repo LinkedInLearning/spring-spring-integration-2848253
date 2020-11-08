@@ -1,5 +1,6 @@
 package com.lil.springintegration.domain;
 
+import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.util.ArrayList;
@@ -8,11 +9,11 @@ import java.util.Date;
 public class AppSupportStatus {
 
     private String runningVersion;
-    private Date snapTime;
+    private Date snapTime = new Date();
     private boolean updateRequired = false;
     private int netSolar = 0;
     private int netWind = 0;
-    private ArrayList<LinkedCaseInsensitiveMap> deviceOut = new ArrayList();
+    private ArrayList<LinkedCaseInsensitiveMap<String>> deviceOut = new ArrayList<>();
 
     public String getRunningVersion() {
         return runningVersion;
@@ -33,8 +34,8 @@ public class AppSupportStatus {
     public int getNetWind() { return netWind; }
     public void setNetWind(int wind) { this.netWind = wind; }
 
-    public ArrayList<LinkedCaseInsensitiveMap> getDeviceOut() { return this.deviceOut; }
-    public void setDeviceOut(ArrayList<LinkedCaseInsensitiveMap> out) { this.deviceOut = out; }
+    public ArrayList<LinkedCaseInsensitiveMap<String>> getDeviceOut() { return this.deviceOut; }
+    public void setDeviceOut(ArrayList<LinkedCaseInsensitiveMap<String>> out) { this.deviceOut = out; }
 
     public double getAccountCreditEarned() {
         return (netSolar + netWind) * .0001;
@@ -51,7 +52,7 @@ public class AppSupportStatus {
 
     public String getCustomerDeviceNotification() {
         if (!deviceOut.isEmpty()) {
-            return "Your power grid has one or more devices offline. Details...";
+            return "Your power grid has one or more devices offline.";
         }
         return null;
     }

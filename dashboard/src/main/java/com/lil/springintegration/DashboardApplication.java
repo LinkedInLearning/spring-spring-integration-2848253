@@ -35,6 +35,7 @@ public class DashboardApplication {
 		dashboardManager = new DashboardManager();
 		SpringApplication.run(DashboardApplication.class, args);
 		logger.info("Open this application in your browser at http://localhost:" + props.getRuntimeProperties().getProperty("server.port", "") + ". (Modify port number in src/main/resources/application.properties)");
+		dashboardManager.initCallback();
 		context.close();
 	}
 
@@ -46,10 +47,12 @@ public class DashboardApplication {
 
 	@RequestMapping(value = "/api")
 	public ResponseEntity<Object> getProducts() {
-		return new ResponseEntity<>(simulateRestApiCall(), HttpStatus.OK);
+		String payload = simulateRestApiResponse();
+		//System.out.println("API Returning: " + payload);
+		return new ResponseEntity<>(payload, HttpStatus.OK);
 	}
 
-	private static String simulateRestApiCall() {
+	private static String simulateRestApiResponse() {
 		Random random = new Random();
 		JSONObject json = new JSONObject();
 		try {

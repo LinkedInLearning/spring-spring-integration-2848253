@@ -9,8 +9,22 @@
 			   http://www.springframework.org/schema/integration
 			   https://www.springframework.org/schema/integration/spring-integration.xsd
                http://www.springframework.org/schema/integration/http
-               http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
+               http://www.springframework.org/schema/integration/http/spring-integration-http-5.2.xsd">
 
-    <!-- Configure Spring Integration message flow here -->
+    <!-- Configure Spring Integration HTTP message flow here -->
+
+    <int:channel id="pollingSignalChannel" />
+
+    <int:inbound-channel-adapter id="apiPoller" channel="pollingSignalChannel" expression="''" auto-startup="false">
+        <int:poller fixed-rate='1000' />
+    </int:inbound-channel-adapter>
+
+    <int-http:outbound-gateway id="apiGateway"
+                               request-channel="pollingSignalChannel"
+                               url="http://localhost:9090/api"
+                               http-method="GET"
+                               reply-channel="apiInputChannel"
+                               reply-timeout="5000"
+                               expected-response-type="java.lang.String" />
 
 </beans:beans>
