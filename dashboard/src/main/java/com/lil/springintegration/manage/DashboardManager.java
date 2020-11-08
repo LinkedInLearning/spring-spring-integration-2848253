@@ -66,7 +66,11 @@ public class DashboardManager {
         DashboardManager.setDashboardStatus("windUsage", "...");
         DashboardManager.setDashboardStatus("creditsToDate", "...");
         DashboardManager.setDashboardStatus("devicesNotification", "");
-        DashboardManager.setDashboardStatus("latestTweets", "");
+        if (twitterPoller != null) {
+            DashboardManager.setDashboardStatus("latestTweets", "");
+        } else {
+            DashboardManager.setDashboardStatus("latestTweets", "README: To activate live Twitter feed, see instructions at application.xml, line 40.");
+        }
 
         AppProperties props = (AppProperties) DashboardManager.getDashboardContext().getBean("appProperties");
         String v = props.getRuntimeProperties().getProperty("software.build", "unknown");
