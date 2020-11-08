@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class JdbcMessageTransformer {
 
-    public AppSupportStatus transform(ArrayList<LinkedCaseInsensitiveMap> outList) {
+    public AppSupportStatus transform(ArrayList<LinkedCaseInsensitiveMap<String>> outList) {
         AppSupportStatus x = new AppSupportStatus();
         x.setDeviceOut(outList);
         return x;
