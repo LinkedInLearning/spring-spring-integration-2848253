@@ -13,7 +13,7 @@
 
     <!-- Configure Spring Integration KinetECO News message flow here -->
 
-    <!-- To demo this Twitter adapter, see instructions on application.xml line 39 -->
+    <!-- To demo this Twitter adapter, see instructions on application.xml line 40 -->
 
     <int-twitter:search-inbound-channel-adapter
             id="twitterPoller"
@@ -23,7 +23,8 @@
             auto-startup="false">
         <int:poller fixed-rate="7000" max-messages-per-poll="1"/>
     </int-twitter:search-inbound-channel-adapter>
-    
+
+    <!-- These property values are coming in from application.properties. Valid api credentials are required to be supplied in that file. -->
     <beans:bean id="twitterAuth" class="org.springframework.social.twitter.api.impl.TwitterTemplate">
         <beans:constructor-arg value="${twitter.oauth.consumerKey}"/>
         <beans:constructor-arg value="${twitter.oauth.consumerSecret}"/>
