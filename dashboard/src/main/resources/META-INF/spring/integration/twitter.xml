@@ -13,7 +13,7 @@
 
     <!-- Configure Spring Integration KinetECO News message flow here -->
 
-    <!-- To demo this Twitter adapter, see instructions on application.xml line 40 -->
+    <!-- To demo this Twitter adapter, see instructions on application.xml line 41 -->
 
     <int-twitter:search-inbound-channel-adapter
             id="twitterPoller"

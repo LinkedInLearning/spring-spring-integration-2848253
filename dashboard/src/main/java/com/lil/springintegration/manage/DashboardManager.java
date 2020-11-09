@@ -74,7 +74,7 @@ public class DashboardManager {
         if (twitterPoller != null) {
             DashboardManager.setDashboardStatus("latestTweets", "");
         } else {
-            DashboardManager.setDashboardStatus("latestTweets", "README: To activate live Twitter feed, see instructions at application.xml, line 40.");
+            DashboardManager.setDashboardStatus("latestTweets", "README: To activate live Twitter feed, see instructions at application.xml, line 41.");
         }
 
         AppProperties props = (AppProperties) DashboardManager.getDashboardContext().getBean("appProperties");
