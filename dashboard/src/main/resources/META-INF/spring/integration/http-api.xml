@@ -13,18 +13,4 @@
 
     <!-- Configure Spring Integration HTTP message flow here -->
 
-    <int:channel id="pollingSignalChannel" />
-
-    <int:inbound-channel-adapter id="apiPoller" channel="pollingSignalChannel" expression="''" auto-startup="false">
-        <int:poller fixed-rate='1000' />
-    </int:inbound-channel-adapter>
-
-    <int-http:outbound-gateway id="apiGateway"
-                               request-channel="pollingSignalChannel"
-                               url="http://localhost:9090/api"
-                               http-method="GET"
-                               reply-channel="apiInputChannel"
-                               reply-timeout="5000"
-                               expected-response-type="java.lang.String" />
-
 </beans:beans>
