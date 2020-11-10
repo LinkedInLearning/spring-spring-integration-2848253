@@ -27,7 +27,7 @@ The `main` branch holds the final state of the code when the course is complete.
 
 1. From IDEA Welcome screen, select **Open or Import**  
 2. Choose the root directory of your newly cloned repository: `spring-spring-integration-28748253`
-3. Context-click on the file `dashboard/pom.xml`
+3. From the Project View, context-click on the file `dashboard/pom.xml`
 4. Select **+ Add as Maven project**. This will cause project dependencies to download from the internet. Minimize the resulting Maven view pane if you wish. 
 5. Context-click on the file `dashboard/src/main/java/com.lil.springintegration.DashboardApplication.java`
 6. Select **Run**
