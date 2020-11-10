@@ -8,7 +8,7 @@
 			   http://www.springframework.org/schema/integration
 			   https://www.springframework.org/schema/integration/spring-integration.xsd" >
 
-    <!-- Configure Spring Integration Tech Support message flow here -->
+    <!-- Configure Spring Integration Status Monitor message flow here -->
 
     <!-- DirectChannel example (Subscribable) -->
     <int:channel id="rawJsonInputChannel" />
