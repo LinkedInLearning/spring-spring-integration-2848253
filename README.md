@@ -1,7 +1,7 @@
 # Spring: Spring Integration
 This is the repository for the LinkedIn Learning course Spring: Spring Integration. The full course is available from [LinkedIn Learning](https://linkedin.com/learning/).
 
-[![Spring: Spring Integration](COURSEIMAGE)](LICOURSEURL)
+[![Spring: Spring Integration](COURSEIMAGE)](LICENSE)
 
 In this course you will learn to deliver stable, resilient, scalable distributed systems using Spring Integration. You will build a demonstration dashboard application that implements the Components of a Spring Integration project: Messages, Channels, and Endpoints.
 
