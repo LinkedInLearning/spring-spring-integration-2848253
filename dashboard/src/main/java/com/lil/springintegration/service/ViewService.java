@@ -41,7 +41,7 @@ public class ViewService {
     }
 
     private void checkForNotifications() {
-        /* Check queue for notifications that the software needs to be updated */
+        /* Check queue for notifications */
         GenericMessage<?> message = (GenericMessage<?>) updateNotificationChannel.receive(1000);
         if (message != null) {
             if (message.getPayload() instanceof AppSupportStatus ) {
