@@ -13,12 +13,18 @@
 
     <!-- Configure Spring Integration HTTP message flow here -->
 
+    <!-- DirectChannel Example -->
     <int:channel id="pollingSignalChannel" />
 
-    <int:inbound-channel-adapter id="apiPoller" channel="pollingSignalChannel" expression="''" auto-startup="false">
+    <!-- Inbound Polling Adapter Example, using spEL -->
+    <int:inbound-channel-adapter id="apiPoller"
+                                 channel="pollingSignalChannel"
+                                 expression="''"
+                                 auto-startup="false">
         <int:poller fixed-rate='1000' />
     </int:inbound-channel-adapter>
 
+    <!-- Http Outbound (Client) Gateway Example -->
     <int-http:outbound-gateway id="apiGateway"
                                request-channel="pollingSignalChannel"
                                url="http://localhost:9090/api"

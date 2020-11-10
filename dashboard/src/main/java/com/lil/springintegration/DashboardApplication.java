@@ -2,7 +2,6 @@ package com.lil.springintegration;
 
 import com.lil.springintegration.manage.DashboardManager;
 import com.lil.springintegration.domain.AppProperties;
-import com.lil.springintegration.service.StatusMonitorService;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -48,7 +47,6 @@ public class DashboardApplication {
 	@RequestMapping(value = "/api")
 	public ResponseEntity<Object> getProducts() {
 		String payload = simulateRestApiResponse();
-		//System.out.println("API Returning: " + payload);
 		return new ResponseEntity<>(payload, HttpStatus.OK);
 	}
 

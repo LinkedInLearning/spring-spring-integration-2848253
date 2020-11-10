@@ -15,6 +15,7 @@
 
     <!-- To demo this Twitter adapter, see instructions on application.xml line 41 -->
 
+    <!-- Twitter Inbound Channel Adapter Example -->
     <int-twitter:search-inbound-channel-adapter
             id="twitterPoller"
             query="#sustainability #kineteconews"

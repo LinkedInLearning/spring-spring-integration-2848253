@@ -1,6 +1,6 @@
 package com.lil.springintegration.service;
 
-import com.lil.springintegration.endpoint.TechSupportMessageHandler;
+import com.lil.springintegration.endpoint.AppStatusMessageHandler;
 import com.lil.springintegration.manage.DashboardManager;
 import com.lil.springintegration.domain.AppSupportStatus;
 import org.slf4j.Logger;
@@ -41,7 +41,7 @@ public class ViewService {
     }
 
     private void checkForNotifications() {
-        /* Check queue for notifications that the software needs to be updated */
+        /* Check queue for notifications */
         GenericMessage<?> message = (GenericMessage<?>) updateNotificationChannel.receive(1000);
         if (message != null) {
             if (message.getPayload() instanceof AppSupportStatus ) {
@@ -55,7 +55,7 @@ public class ViewService {
         }
     }
 
-    private static class ViewMessageHandler extends TechSupportMessageHandler {
+    private static class ViewMessageHandler extends AppStatusMessageHandler {
         protected void receive(AppSupportStatus status) {
             DashboardManager.setDashboardStatus("softwareBuild", status.getRunningVersion());
             DashboardManager.setDashboardStatus("solarUsage", String.valueOf(status.getNetSolar()));

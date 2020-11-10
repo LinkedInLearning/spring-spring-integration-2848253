@@ -1,25 +1,16 @@
 package com.lil.springintegration.service;
 
-import com.lil.springintegration.endpoint.TechSupportMessageFilter;
-import com.lil.springintegration.endpoint.TechSupportMessageHandler;
+import com.lil.springintegration.endpoint.AppStatusMessageFilter;
+import com.lil.springintegration.endpoint.AppStatusMessageHandler;
 import com.lil.springintegration.manage.DashboardManager;
 import com.lil.springintegration.domain.AppSupportStatus;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.integration.channel.*;
-import org.springframework.integration.support.MessageBuilder;
-
-import java.util.Date;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class StatusMonitorService {
 
     static Logger logger = LoggerFactory.getLogger(DashboardManager.class);
-    private Timer timer = new Timer();
 
     private AppSupportStatus currentLocalStatus;
 
@@ -33,13 +24,13 @@ public class StatusMonitorService {
         statusMonitorChannel.subscribe(new ServiceMessageHandler());
     }
 
-    public static class ServiceMessageFilter extends TechSupportMessageFilter {
+    public static class ServiceMessageFilter extends AppStatusMessageFilter {
         protected boolean filterMessage(AppSupportStatus status) {
             return status.isUpdateRequired() || status.isDeviceOut();
         }
     }
 
-    private class ServiceMessageHandler extends TechSupportMessageHandler {
+    private class ServiceMessageHandler extends AppStatusMessageHandler {
         protected void receive(AppSupportStatus status) {
             setCurrentSupportStatus(status);
         }

@@ -6,7 +6,7 @@ import org.springframework.integration.core.MessageSelector;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessagingException;
 
-public abstract class TechSupportMessageFilter implements MessageSelector {
+public abstract class AppStatusMessageFilter implements MessageSelector {
 
     @Override
     public boolean accept(Message<?> message) throws MessagingException {

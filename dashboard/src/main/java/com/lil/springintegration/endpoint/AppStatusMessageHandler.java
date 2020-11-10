@@ -6,7 +6,7 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
 
-public abstract class TechSupportMessageHandler implements MessageHandler {
+public abstract class AppStatusMessageHandler implements MessageHandler {
 
     @Override
     public void handleMessage(Message<?> message) throws MessagingException {
