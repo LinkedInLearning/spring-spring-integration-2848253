@@ -27,11 +27,12 @@ The `main` branch holds the final state of the code when the course is complete.
 
 1. From IDEA Welcome screen, select **Open or Import**  
 2. Choose the root directory of your newly cloned repository: `spring-spring-integration-28748253`
+3. Within IntelliJ, make sure your Project SDK is set to Java 1.8 or higher. (File > Project Structure)
 3. From the Project View, context-click on the file `dashboard/pom.xml`
 4. Select **+ Add as Maven project**. This will cause project dependencies to download from the internet. Minimize the resulting Maven view pane if you wish. 
 5. Context-click on the file `dashboard/src/main/java/com.lil.springintegration.DashboardApplication.java`
 6. Select **Run**
-7. Open the app in your browser at `http://localhost:9090`
+7. Open the application in your browser at `http://localhost:9090`
 
 ### Run from Command Line
 
@@ -39,3 +40,5 @@ The `main` branch holds the final state of the code when the course is complete.
 2. Execute `mvn clean package`  
 3. Execute `mvn spring-boot:run`
 4. Open the app in your browser at `http://localhost:9090`
+
+    
