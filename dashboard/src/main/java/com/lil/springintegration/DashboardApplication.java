@@ -1,7 +1,9 @@
-package com.kathyflint.lil.dashboard;
+package com.lil.springintegration;
 
-import com.kathyflint.lil.dashboard.manage.DashboardManager;
-import com.kathyflint.lil.dashboard.util.AppProperties;
+import com.lil.springintegration.manage.DashboardManager;
+import com.lil.springintegration.domain.AppProperties;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Date;
+import java.util.Random;
 
 @SpringBootApplication
 @Controller
@@ -29,18 +34,35 @@ public class DashboardApplication {
 		dashboardManager = new DashboardManager();
 		SpringApplication.run(DashboardApplication.class, args);
 		logger.info("Open this application in your browser at http://localhost:" + props.getRuntimeProperties().getProperty("server.port", "") + ". (Modify port number in src/main/resources/application.properties)");
+		dashboardManager.initCallback();
 		context.close();
 	}
 
 	@GetMapping("/")
 	public String dashboard(Model model) {
-		model.addAttribute("status", dashboardManager.getDashboardStatus());
+		model.addAttribute("status", DashboardManager.getDashboardStatus());
 		return "dashboard";
 	}
 
 	@RequestMapping(value = "/api")
 	public ResponseEntity<Object> getProducts() {
-		return new ResponseEntity<>("OK", HttpStatus.OK);
+		String payload = simulateRestApiResponse();
+		return new ResponseEntity<>(payload, HttpStatus.OK);
+	}
+
+	private static String simulateRestApiResponse() {
+		Random random = new Random();
+		JSONObject json = new JSONObject();
+		try {
+			json.put("runningVersion", "unknown");
+			json.put("snapTime", new Date().toString());
+			json.put("updateRequired", random.nextBoolean());
+			json.put("netSolar", random.nextInt(40));
+			json.put("netWind", random.nextInt(40));
+		} catch (JSONException e) {
+			logger.info(e.toString());
+		}
+		return json.toString();
 	}
 
 }

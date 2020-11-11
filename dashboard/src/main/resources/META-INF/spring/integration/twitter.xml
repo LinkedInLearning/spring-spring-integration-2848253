@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:int="http://www.springframework.org/schema/integration"
+             xmlns:int-twitter="http://www.springframework.org/schema/integration/twitter"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+			   https://www.springframework.org/schema/beans/spring-beans.xsd
+			   http://www.springframework.org/schema/integration
+			   https://www.springframework.org/schema/integration/spring-integration.xsd
+               http://www.springframework.org/schema/integration/twitter
+               http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd">
+
+    <!-- Configure Spring Integration KinetECO News message flow here -->
+
+    <!-- To demo this Twitter adapter, see instructions on application.xml line 41 -->
+
+    <!-- Twitter Inbound Channel Adapter Example -->
+    <int-twitter:search-inbound-channel-adapter
+            id="twitterPoller"
+            query="#sustainability #kineteconews"
+            channel="updateNotificationQueueChannel"
+            twitter-template="twitterAuth"
+            auto-startup="false">
+        <int:poller fixed-rate="7000" max-messages-per-poll="1"/>
+    </int-twitter:search-inbound-channel-adapter>
+
+    <!-- These property values are coming in from application.properties. Valid api credentials are required to be supplied in that file. -->
+    <beans:bean id="twitterAuth" class="org.springframework.social.twitter.api.impl.TwitterTemplate">
+        <beans:constructor-arg value="${twitter.oauth.consumerKey}"/>
+        <beans:constructor-arg value="${twitter.oauth.consumerSecret}"/>
+        <beans:constructor-arg value="${twitter.oauth.accessToken}"/>
+        <beans:constructor-arg value="${twitter.oauth.accessTokenSecret}"/>
+    </beans:bean>
+
+</beans:beans>

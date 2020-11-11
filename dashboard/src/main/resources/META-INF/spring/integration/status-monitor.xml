@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:int="http://www.springframework.org/schema/integration"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+			   https://www.springframework.org/schema/beans/spring-beans.xsd
+			   http://www.springframework.org/schema/integration
+			   https://www.springframework.org/schema/integration/spring-integration.xsd" >
+
+    <!-- Configure Spring Integration Status Monitor message flow here -->
+
+    <!-- DirectChannel example (Subscribable) -->
+    <int:channel id="apiInputChannel" />
+
+    <!-- Transformer example (JSON to Object) -->
+    <int:json-to-object-transformer input-channel="apiInputChannel"
+                                    output-channel="statusMonitorChannel"
+                                    type="com.lil.springintegration.domain.AppSupportStatus" />
+
+    <!-- PublishSubscribeChannel example (Subscribable) -->
+    <int:publish-subscribe-channel id="statusMonitorChannel" />
+
+    <!-- ServiceActivator example -->
+    <int:service-activator
+            input-channel="statusMonitorChannel"
+            ref="accountCreditService"
+            method="creditCustomerAccount"/>
+
+    <beans:bean id="accountCreditService" class="com.lil.springintegration.service.CustomerAccountService" />
+
+    <!-- Filter example -->
+    <int:filter input-channel="statusMonitorChannel"
+                output-channel="updateNotificationQueueChannel"
+                ref="updateNoticeSelector" />
+
+    <beans:bean id="updateNoticeSelector" class="com.lil.springintegration.service.StatusMonitorService.ServiceMessageFilter" />
+
+    <!-- QueueChannel examples (Pollable) -->
+    <int:channel id="updateNotificationQueueChannel">
+        <int:queue capacity="5" />
+    </int:channel>
+
+</beans:beans>
+

@@ -3,24 +3,43 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
            http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context.xsd">
+           http://www.springframework.org/schema/context/spring-context.xsd
+    	   http://www.springframework.org/schema/jdbc
+           https://www.springframework.org/schema/jdbc/spring-jdbc.xsd" >
 
     <!-- Spring Application "Parent" Context -->
 
     <context:property-placeholder location="classpath:application.properties" />
 
-    <beans:bean id="appProperties" class="com.kathyflint.lil.dashboard.util.AppProperties">
+    <beans:bean id="appProperties" class="com.lil.springintegration.domain.AppProperties">
         <property name="runtimeProperties">
             <props>
-                <prop key = "software.build">${software.build}</prop>
-                <prop key = "server.port">${server.port}</prop>
+                <prop key="software.build">${software.build}</prop>
+                <prop key="server.port">${server.port}</prop>
             </props>
         </property>
     </beans:bean>
 
+    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <beans:property name="driverClass" value="org.h2.Driver"/>
+        <beans:property name="url" value="jdbc:h2:mem:database;DB_CLOSE_DELAY=-1"/>
+    </beans:bean>
+
+    <jdbc:initialize-database data-source="dataSource" ignore-failures="DROPS">
+        <jdbc:script location="schema.sql"/>
+        <jdbc:script location="data.sql"/>
+    </jdbc:initialize-database>
+
     <!-- Import Spring Integration Message Flows Here -->
+    <import resource="integration/status-monitor.xml" />
+    <import resource="integration/jdbc.xml" />
+    <import resource="integration/http-api.xml" />
+    <!-- To demo the Twitter adapter, first insert your own Twitter OAuth configuration into application.properties -->
+    <!-- Then uncomment the line below and run the application -->
+    <!-- <import resource="integration/twitter.xml" /> -->
 
 </beans:beans>
