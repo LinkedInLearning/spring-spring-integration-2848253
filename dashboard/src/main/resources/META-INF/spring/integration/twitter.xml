@@ -13,11 +13,13 @@
 
     <!-- Configure Spring Integration KinetECO News message flow here -->
 
-    <!-- To demo this Twitter adapter, see instructions on application.xml line 41 -->
+    <!-- To demo this Twitter adapter, first see instructions on application.xml line 41.
+    Depending on your Twitter developer account parameters, you may see only 7 days of tweet history.
+    You may modify and experiment with the query string below against your own Twitter account. -->
 
     <int-twitter:search-inbound-channel-adapter
             id="twitterPoller"
-            query="#sustainability #kineteconews"
+            query="#kineteconews @KinetEco"
             channel="updateNotificationQueueChannel"
             twitter-template="twitterAuth"
             auto-startup="false">
