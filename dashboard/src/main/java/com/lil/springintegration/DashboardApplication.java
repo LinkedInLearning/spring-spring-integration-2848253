@@ -54,7 +54,6 @@ public class DashboardApplication {
 		Random random = new Random();
 		JSONObject json = new JSONObject();
 		try {
-			json.put("runningVersion", "unknown");
 			json.put("snapTime", new Date().toString());
 			json.put("updateRequired", random.nextBoolean());
 			json.put("netSolar", random.nextInt(40));
