@@ -1,4 +1,4 @@
-package com.kathyflint.lil.dashboard;
+package com.lil.springintegration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;

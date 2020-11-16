@@ -1,4 +1,4 @@
-package com.kathyflint.lil.dashboard.util;
+package com.lil.springintegration.util;
 
 import java.util.Properties;
 

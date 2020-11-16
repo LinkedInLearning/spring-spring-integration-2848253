@@ -12,7 +12,7 @@
 
     <context:property-placeholder location="classpath:application.properties" />
 
-    <beans:bean id="appProperties" class="com.kathyflint.lil.dashboard.util.AppProperties">
+    <beans:bean id="appProperties" class="com.lil.springintegration.util.AppProperties">
         <property name="runtimeProperties">
             <props>
                 <prop key = "software.build">${software.build}</prop>
