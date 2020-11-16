@@ -1,7 +1,7 @@
 package com.kathyflint.lil.dashboard.manage;
 
 import com.kathyflint.lil.dashboard.util.AppProperties;
-import com.kathyflint.lil.dashboard.util.AppSupportStatus;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
