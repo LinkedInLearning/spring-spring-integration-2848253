@@ -11,9 +11,10 @@ class DashboardApplicationTests {
 
 	@Test
 	void contextLoads() {
-		//AbstractApplicationContext context = new ClassPathXmlApplicationContext("", DashboardApplicationTests.class);
+		AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/application.xml",
+				DashboardApplicationTests.class);
 		try {
-			// look for imported bean
+			context.getBean("testMessageFlowImports");
 			System.out.println("Spring Integration message flows imported successfully!");
 			assert(true);
 		} catch(NoSuchBeanDefinitionException e) {
